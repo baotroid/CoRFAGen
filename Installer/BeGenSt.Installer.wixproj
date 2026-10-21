@@ -1,0 +1,13 @@
+<Project Sdk="WixToolset.Sdk/5.0.2">
+  <!-- Built by ..\BuildInstaller.cmd (dotnet build). WiX v5 is MS-RL licensed, no maintenance-fee EULA. -->
+  <PropertyGroup>
+    <ProductVersion Condition="'$(ProductVersion)' == ''">1.0.0</ProductVersion>
+    <OutputName>BeGenSt_PDFPic2RFA_$(ProductVersion)</OutputName>
+    <InstallerPlatform>x64</InstallerPlatform>
+    <Platform>x64</Platform>
+    <!-- ICE checks complain about the per-user cleanup component; the package itself is per-machine -->
+    <SuppressValidation>true</SuppressValidation>
+    <BinRoot Condition="'$(BinRoot)' == ''">$(MSBuildThisFileDirectory)..\BeGenSt\bin\Release</BinRoot>
+    <DefineConstants>ProductVersion=$(ProductVersion);BinRoot=$(BinRoot);AddinFile=$(MSBuildThisFileDirectory)..\BeGenSt\BeGenSt.addin</DefineConstants>
+  </PropertyGroup>
+</Project>

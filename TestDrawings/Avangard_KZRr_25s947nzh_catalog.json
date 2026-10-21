@@ -1,0 +1,1541 @@
+{
+  "metadata": {
+    "name": "КЗРр 25с947нж",
+    "description": "Клапан запорно-регулирующий односедельный фланцевый с ЭИМ, разгруженный по давлению, DN15–300, PN16–40 (ГК «Авангард», каталог 2024, с. 7). Ось трубопровода — по X на отметке 0, вверх — привод; H — от оси до верха ЭИМ.",
+    "schema_version": "0.1",
+    "category": "Pipe Accessories"
+  },
+  "units": "millimeters",
+  "subcategories": [
+    "Body",
+    "Actuator"
+  ],
+  "parameters": [
+    {
+      "name": "DN",
+      "type": "integer",
+      "instance_or_type": "type",
+      "default_value": 15,
+      "group": "Dimensions",
+      "description": "Номинальный диаметр"
+    },
+    {
+      "name": "PN",
+      "type": "number",
+      "instance_or_type": "type",
+      "default_value": 16,
+      "group": "Mechanical",
+      "unit": "кгс/см2",
+      "description": "Номинальное давление"
+    },
+    {
+      "name": "D1",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 46,
+      "group": "Dimensions",
+      "description": "Диаметр уплотнительной поверхности фланца"
+    },
+    {
+      "name": "D2",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 65,
+      "group": "Dimensions",
+      "description": "Диаметр окружности центров отверстий"
+    },
+    {
+      "name": "D3",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 95,
+      "group": "Dimensions",
+      "description": "Наружный диаметр фланца"
+    },
+    {
+      "name": "L",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 130,
+      "group": "Dimensions",
+      "description": "Строительная длина"
+    },
+    {
+      "name": "n",
+      "type": "integer",
+      "instance_or_type": "type",
+      "default_value": 4,
+      "group": "Dimensions",
+      "description": "Количество отверстий во фланце"
+    },
+    {
+      "name": "d",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 14,
+      "group": "Dimensions",
+      "description": "Диаметр отверстий во фланце"
+    },
+    {
+      "name": "H",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 365,
+      "group": "Dimensions",
+      "description": "Высота от оси трубопровода до верха ЭИМ"
+    },
+    {
+      "name": "Масса",
+      "type": "mass",
+      "instance_or_type": "type",
+      "default_value": 5.5,
+      "group": "Mechanical",
+      "unit": "кг"
+    },
+    {
+      "name": "Стандартный ЭИМ",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "ES 05-11 / ST mini",
+      "group": "Mechanical"
+    },
+    {
+      "name": "ΔP при стандартном ЭИМ, МПа",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "2,0 / 2,8",
+      "group": "Mechanical"
+    },
+    {
+      "name": "Примечание",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "Не разгружен по давлению, базовая комплектация с приводом AUMA",
+      "group": "Identity Data"
+    },
+    {
+      "name": "Наименование",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "Клапан запорно-регулирующий односедельный фланцевый с ЭИМ, разгруженный по давлению",
+      "group": "Identity Data"
+    },
+    {
+      "name": "Обозначение",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "КЗРр 25с947нж",
+      "group": "Identity Data"
+    },
+    {
+      "name": "Model",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "КЗРр 25с947нж",
+      "group": "Identity Data",
+      "builtin": "Model"
+    },
+    {
+      "name": "Manufacturer",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "ГК «Авангард» (Старооскольский арматурный завод «Авангард»)",
+      "group": "Identity Data",
+      "builtin": "Manufacturer"
+    },
+    {
+      "name": "URL",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "www.saz-avangard.ru",
+      "group": "Identity Data",
+      "builtin": "URL"
+    },
+    {
+      "name": "Материал корпуса",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "Сталь 25Л ГОСТ 977 / 20ГЛ ГОСТ 21357",
+      "group": "Mechanical"
+    },
+    {
+      "name": "Материал крышки",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "Сталь 20 ГОСТ 1050",
+      "group": "Mechanical"
+    },
+    {
+      "name": "Уплотнение в затворе",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "нж",
+      "group": "Mechanical"
+    },
+    {
+      "name": "Плунжер, седло",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "20Х13 ГОСТ 5632",
+      "group": "Mechanical"
+    },
+    {
+      "name": "Присоединение",
+      "type": "text",
+      "instance_or_type": "type",
+      "default_value": "Фланцевое, исполнение B ряд 1 по ГОСТ 33259",
+      "group": "Mechanical"
+    }
+  ],
+  "reference_planes": [
+    {
+      "name": "Left Face",
+      "direction": "x",
+      "offset": "-L/2",
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Right Face",
+      "direction": "x",
+      "offset": "L/2",
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Pipe Axis",
+      "direction": "z",
+      "offset": 0,
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Motor Plane",
+      "direction": "y",
+      "offset": 0,
+      "is_reference": "Weak"
+    }
+  ],
+  "geometry": [
+    {
+      "name": "Raised Face Left",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Left Face",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "D1/2"
+      },
+      "extrusion_start": 0,
+      "extrusion_end": 3
+    },
+    {
+      "name": "Flange Left",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Left Face",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "D3/2"
+      },
+      "extrusion_start": 3,
+      "extrusion_end": "3 + 0.06*D3 + 6",
+      "holes": [
+        {
+          "radius": "d/2",
+          "pattern": {
+            "count": "n",
+            "radius": "D2/2",
+            "start_angle": "180/n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Raised Face Right",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Right Face",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "D1/2"
+      },
+      "extrusion_start": -3,
+      "extrusion_end": 0
+    },
+    {
+      "name": "Flange Right",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Right Face",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "D3/2"
+      },
+      "extrusion_start": "-3 - (0.06*D3 + 6)",
+      "extrusion_end": -3,
+      "holes": [
+        {
+          "radius": "d/2",
+          "pattern": {
+            "count": "n",
+            "radius": "D2/2",
+            "start_angle": "180/n"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Neck Left",
+      "type": "blend",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Left Face",
+      "bottom_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.45*D1"
+      },
+      "top_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.26*D3"
+      },
+      "bottom_offset": "3 + 0.06*D3 + 6",
+      "top_offset": "L/2 - 0.28*D3"
+    },
+    {
+      "name": "Neck Right",
+      "type": "blend",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Left Face",
+      "bottom_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.26*D3"
+      },
+      "top_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.45*D1"
+      },
+      "bottom_offset": "L/2 + 0.28*D3",
+      "top_offset": "L - 3 - (0.06*D3 + 6)"
+    },
+    {
+      "name": "Globe Lower",
+      "type": "blend",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "bottom_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.22*D3"
+      },
+      "top_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.36*D3"
+      },
+      "bottom_offset": "-0.40*D3",
+      "top_offset": 0
+    },
+    {
+      "name": "Globe Upper",
+      "type": "blend",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "bottom_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.36*D3"
+      },
+      "top_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.24*D3"
+      },
+      "bottom_offset": 0,
+      "top_offset": "0.40*D3"
+    },
+    {
+      "name": "Bottom Boss",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.12*D3"
+      },
+      "extrusion_start": "-0.44*D3",
+      "extrusion_end": "-0.40*D3"
+    },
+    {
+      "name": "Bore",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": true,
+      "sketch_plane": "Left Face",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "DN/2"
+      },
+      "extrusion_start": -1,
+      "extrusion_end": "L + 1"
+    },
+    {
+      "name": "Body Top Flange",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.31*D3"
+      },
+      "extrusion_start": "0.36*D3",
+      "extrusion_end": "0.40*D3"
+    },
+    {
+      "name": "Bonnet Flange",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.31*D3"
+      },
+      "extrusion_start": "0.40*D3",
+      "extrusion_end": "0.45*D3 + 3"
+    },
+    {
+      "name": "Bonnet",
+      "type": "blend",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "bottom_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.22*D3"
+      },
+      "top_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.11*D3 + 6"
+      },
+      "bottom_offset": "0.45*D3 + 3",
+      "top_offset": "0.55*D3 + 8"
+    },
+    {
+      "name": "Bonnet Stud",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.012*D3 + 3"
+      },
+      "extrusion_start": "0.35*D3",
+      "extrusion_end": "0.47*D3 + 6",
+      "pattern": {
+        "count": 8,
+        "radius": "0.265*D3",
+        "start_angle": 22.5
+      }
+    },
+    {
+      "name": "Gland",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.06*D3 + 8"
+      },
+      "extrusion_start": "0.55*D3 + 8",
+      "extrusion_end": "0.60*D3 + 14"
+    },
+    {
+      "name": "Yoke Pillar",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.012*D3 + 5"
+      },
+      "extrusion_start": "0.55*D3 + 8",
+      "extrusion_end": "0.55*H - 0.03*H",
+      "pattern": {
+        "count": 2,
+        "radius": "0.08*D3 + 14",
+        "start_angle": 0
+      }
+    },
+    {
+      "name": "Yoke Top Plate",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.10*D3 + 22"
+      },
+      "extrusion_start": "0.55*H - 0.03*H",
+      "extrusion_end": "0.55*H"
+    },
+    {
+      "name": "Stem",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.02*D3 + 4"
+      },
+      "extrusion_start": "0.60*D3 + 14",
+      "extrusion_end": "0.55*H - 0.03*H"
+    },
+    {
+      "name": "Stem Coupling",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "-0.03*D3 - 9",
+          "v": "-0.03*D3 - 9"
+        },
+        "width": "0.06*D3 + 18",
+        "height": "0.06*D3 + 18"
+      },
+      "extrusion_start": "0.62*D3 + 30",
+      "extrusion_end": "0.62*D3 + 30 + 0.05*H"
+    },
+    {
+      "name": "Actuator Flange",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.10*H"
+      },
+      "extrusion_start": "0.55*H",
+      "extrusion_end": "0.58*H",
+      "toggle": "actuator"
+    },
+    {
+      "name": "Gearbox",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "-0.15*H",
+          "v": "-0.13*H"
+        },
+        "width": "0.30*H",
+        "height": "0.26*H"
+      },
+      "extrusion_start": "0.58*H",
+      "extrusion_end": "0.80*H",
+      "toggle": "actuator"
+    },
+    {
+      "name": "Motor",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Motor Plane",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": "-0.04*H",
+          "v": "0.69*H"
+        },
+        "radius": "0.085*H"
+      },
+      "extrusion_start": "0.13*H",
+      "extrusion_end": "0.38*H",
+      "toggle": "actuator"
+    },
+    {
+      "name": "Motor Fan Cover",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Motor Plane",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": "-0.04*H",
+          "v": "0.69*H"
+        },
+        "radius": "0.065*H"
+      },
+      "extrusion_start": "0.38*H",
+      "extrusion_end": "0.42*H",
+      "toggle": "actuator"
+    },
+    {
+      "name": "Handwheel Shaft",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Motor Plane",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": "0.04*H",
+          "v": "0.69*H"
+        },
+        "radius": "0.015*H"
+      },
+      "extrusion_start": "-0.20*H",
+      "extrusion_end": "-0.13*H",
+      "toggle": "actuator"
+    },
+    {
+      "name": "Handwheel",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Motor Plane",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": "0.04*H",
+          "v": "0.69*H"
+        },
+        "radius": "0.12*H"
+      },
+      "extrusion_start": "-0.215*H",
+      "extrusion_end": "-0.195*H",
+      "toggle": "actuator",
+      "holes": [
+        {
+          "radius": "0.095*H",
+          "center": {
+            "u": "0.04*H",
+            "v": "0.69*H"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Controls",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "-0.12*H",
+          "v": "-0.10*H"
+        },
+        "width": "0.24*H",
+        "height": "0.20*H"
+      },
+      "extrusion_start": "0.80*H",
+      "extrusion_end": "0.95*H",
+      "toggle": "actuator"
+    },
+    {
+      "name": "Position Indicator",
+      "type": "extrusion",
+      "subcategory": "Actuator",
+      "is_void": false,
+      "sketch_plane": "Pipe Axis",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "0.055*H"
+      },
+      "extrusion_start": "0.95*H",
+      "extrusion_end": "H",
+      "toggle": "actuator"
+    }
+  ],
+  "catalog": {
+    "source": "ГК «Авангард», каталог продукции 2024, с. 7 — Габаритные и присоединительные размеры; допустимый перепад давлений",
+    "type_name_pattern": "{Префикс} {Обозначение} DN{DN} PN{PN}",
+    "constants": {
+      "Префикс": "КЗРр",
+      "Обозначение": "25с947нж"
+    },
+    "columns": [
+      {
+        "name": "DN",
+        "type": "integer"
+      },
+      {
+        "name": "PN",
+        "type": "number",
+        "unit": "кгс/см2"
+      },
+      {
+        "name": "D1",
+        "type": "length"
+      },
+      {
+        "name": "D2",
+        "type": "length"
+      },
+      {
+        "name": "D3",
+        "type": "length"
+      },
+      {
+        "name": "L",
+        "type": "length"
+      },
+      {
+        "name": "n",
+        "type": "integer"
+      },
+      {
+        "name": "d",
+        "type": "length"
+      },
+      {
+        "name": "H",
+        "type": "length"
+      },
+      {
+        "name": "Масса",
+        "type": "mass",
+        "unit": "кг"
+      },
+      {
+        "name": "Стандартный ЭИМ",
+        "type": "text"
+      },
+      {
+        "name": "ΔP при стандартном ЭИМ, МПа",
+        "type": "text"
+      },
+      {
+        "name": "Примечание",
+        "type": "text"
+      }
+    ],
+    "figures": [
+      {
+        "figure": "25ч945п",
+        "prefix": "КЗРр",
+        "material": "Чугун СЧ20",
+        "seal": "п",
+        "pn": [
+          16
+        ]
+      },
+      {
+        "figure": "25ч945нж",
+        "prefix": "КЗРр/КРр",
+        "material": "Чугун СЧ20",
+        "seal": "нж",
+        "pn": [
+          16
+        ]
+      },
+      {
+        "figure": "25с947п",
+        "prefix": "КЗРр",
+        "material": "Сталь 25Л / 20ГЛ",
+        "seal": "п",
+        "pn": [
+          16,
+          25,
+          40
+        ]
+      },
+      {
+        "figure": "25с947нж",
+        "prefix": "КЗРр/КРр",
+        "material": "Сталь 25Л / 20ГЛ",
+        "seal": "нж",
+        "pn": [
+          16,
+          25,
+          40
+        ]
+      },
+      {
+        "figure": "25лс947п",
+        "prefix": "КЗРр",
+        "material": "Сталь 20ГЛ",
+        "seal": "п",
+        "pn": [
+          16,
+          25,
+          40
+        ]
+      },
+      {
+        "figure": "25лс947нж",
+        "prefix": "КЗРр/КРр",
+        "material": "Сталь 20ГЛ",
+        "seal": "нж",
+        "pn": [
+          16,
+          25,
+          40
+        ]
+      },
+      {
+        "figure": "25нж947п",
+        "prefix": "КЗРр",
+        "material": "Сталь 12Х18Н9ТЛ",
+        "seal": "п",
+        "pn": [
+          16,
+          25,
+          40
+        ]
+      },
+      {
+        "figure": "25нж947нж",
+        "prefix": "КЗРр/КРр",
+        "material": "Сталь 12Х18Н9ТЛ",
+        "seal": "нж",
+        "pn": [
+          16,
+          25,
+          40
+        ]
+      }
+    ],
+    "toggles": [
+      {
+        "id": "actuator",
+        "parameter": "Показать_привод",
+        "default": true
+      }
+    ],
+    "lookup": {
+      "enabled": true,
+      "keys": [
+        "DN",
+        "PN"
+      ]
+    },
+    "connectors": {
+      "enabled": true,
+      "type": "pipe",
+      "system": "Global",
+      "length_parameter": "L",
+      "diameter_parameter": "DN",
+      "axis": "x"
+    },
+    "types": [
+      {
+        "DN": 15,
+        "PN": 16,
+        "D1": 46,
+        "D2": 65,
+        "D3": 95,
+        "L": 130,
+        "n": 4,
+        "d": 14,
+        "H": 365,
+        "Масса": 5.5,
+        "Стандартный ЭИМ": "ES 05-11 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "2,0 / 2,8",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 15,
+        "PN": 25,
+        "D1": 46,
+        "D2": 65,
+        "D3": 95,
+        "L": 130,
+        "n": 4,
+        "d": 14,
+        "H": 365,
+        "Масса": 5.5,
+        "Стандартный ЭИМ": "ES 05-11 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "2,0 / 2,8",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 15,
+        "PN": 40,
+        "D1": 46,
+        "D2": 65,
+        "D3": 95,
+        "L": 130,
+        "n": 4,
+        "d": 14,
+        "H": 365,
+        "Масса": 5.5,
+        "Стандартный ЭИМ": "ES 05-11 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "2,0 / 2,8",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 20,
+        "PN": 16,
+        "D1": 56,
+        "D2": 75,
+        "D3": 105,
+        "L": 150,
+        "n": 4,
+        "d": 14,
+        "H": 370,
+        "Масса": 6,
+        "Стандартный ЭИМ": "ES 05-11 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 2,8",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 20,
+        "PN": 25,
+        "D1": 56,
+        "D2": 75,
+        "D3": 105,
+        "L": 150,
+        "n": 4,
+        "d": 14,
+        "H": 370,
+        "Масса": 6,
+        "Стандартный ЭИМ": "ES 05-11 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 2,8",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 20,
+        "PN": 40,
+        "D1": 56,
+        "D2": 75,
+        "D3": 105,
+        "L": 150,
+        "n": 4,
+        "d": 14,
+        "H": 370,
+        "Масса": 6,
+        "Стандартный ЭИМ": "ES 05-11 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 2,8",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 25,
+        "PN": 16,
+        "D1": 65,
+        "D2": 85,
+        "D3": 115,
+        "L": 160,
+        "n": 4,
+        "d": 14,
+        "H": 375,
+        "Масса": 7,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 2,3",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 25,
+        "PN": 25,
+        "D1": 65,
+        "D2": 85,
+        "D3": 115,
+        "L": 160,
+        "n": 4,
+        "d": 14,
+        "H": 375,
+        "Масса": 7,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 2,3",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 25,
+        "PN": 40,
+        "D1": 65,
+        "D2": 85,
+        "D3": 115,
+        "L": 160,
+        "n": 4,
+        "d": 14,
+        "H": 375,
+        "Масса": 7,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 2,3",
+        "Примечание": "Не разгружен по давлению, базовая комплектация с приводом AUMA"
+      },
+      {
+        "DN": 32,
+        "PN": 16,
+        "D1": 76,
+        "D2": 100,
+        "D3": 135,
+        "L": 180,
+        "n": 4,
+        "d": 18,
+        "H": 420,
+        "Масса": 9,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 32,
+        "PN": 25,
+        "D1": 76,
+        "D2": 100,
+        "D3": 135,
+        "L": 180,
+        "n": 4,
+        "d": 18,
+        "H": 420,
+        "Масса": 9,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 32,
+        "PN": 40,
+        "D1": 76,
+        "D2": 100,
+        "D3": 135,
+        "L": 180,
+        "n": 4,
+        "d": 18,
+        "H": 420,
+        "Масса": 9,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 40,
+        "PN": 16,
+        "D1": 84,
+        "D2": 110,
+        "D3": 145,
+        "L": 200,
+        "n": 4,
+        "d": 18,
+        "H": 445,
+        "Масса": 12,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 40,
+        "PN": 25,
+        "D1": 84,
+        "D2": 110,
+        "D3": 145,
+        "L": 200,
+        "n": 4,
+        "d": 18,
+        "H": 445,
+        "Масса": 12,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 40,
+        "PN": 40,
+        "D1": 84,
+        "D2": 110,
+        "D3": 145,
+        "L": 200,
+        "n": 4,
+        "d": 18,
+        "H": 445,
+        "Масса": 12,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 50,
+        "PN": 16,
+        "D1": 99,
+        "D2": 125,
+        "D3": 160,
+        "L": 230,
+        "n": 4,
+        "d": 18,
+        "H": 495,
+        "Масса": 16,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 50,
+        "PN": 25,
+        "D1": 99,
+        "D2": 125,
+        "D3": 160,
+        "L": 230,
+        "n": 4,
+        "d": 18,
+        "H": 495,
+        "Масса": 16,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 50,
+        "PN": 40,
+        "D1": 99,
+        "D2": 125,
+        "D3": 160,
+        "L": 230,
+        "n": 4,
+        "d": 18,
+        "H": 495,
+        "Масса": 16,
+        "Стандартный ЭИМ": "ES 05-12 / ST mini",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 65,
+        "PN": 16,
+        "D1": 118,
+        "D2": 145,
+        "D3": 180,
+        "L": 290,
+        "n": 4,
+        "d": 18,
+        "H": 595,
+        "Масса": 31,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 65,
+        "PN": 25,
+        "D1": 118,
+        "D2": 145,
+        "D3": 180,
+        "L": 290,
+        "n": 8,
+        "d": 18,
+        "H": 595,
+        "Масса": 31,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 65,
+        "PN": 40,
+        "D1": 118,
+        "D2": 145,
+        "D3": 180,
+        "L": 290,
+        "n": 8,
+        "d": 18,
+        "H": 595,
+        "Масса": 31,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 80,
+        "PN": 16,
+        "D1": 132,
+        "D2": 160,
+        "D3": 195,
+        "L": 310,
+        "n": 4,
+        "d": 18,
+        "H": 595,
+        "Масса": 34,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 80,
+        "PN": 25,
+        "D1": 132,
+        "D2": 160,
+        "D3": 195,
+        "L": 310,
+        "n": 8,
+        "d": 18,
+        "H": 595,
+        "Масса": 34,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 80,
+        "PN": 40,
+        "D1": 132,
+        "D2": 160,
+        "D3": 195,
+        "L": 310,
+        "n": 8,
+        "d": 18,
+        "H": 595,
+        "Масса": 34,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 100,
+        "PN": 16,
+        "D1": 156,
+        "D2": 180,
+        "D3": 215,
+        "L": 350,
+        "n": 8,
+        "d": 18,
+        "H": 610,
+        "Масса": 43,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 100,
+        "PN": 25,
+        "D1": 156,
+        "D2": 190,
+        "D3": 230,
+        "L": 350,
+        "n": 8,
+        "d": 22,
+        "H": 610,
+        "Масса": 43,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 100,
+        "PN": 40,
+        "D1": 156,
+        "D2": 190,
+        "D3": 230,
+        "L": 350,
+        "n": 8,
+        "d": 22,
+        "H": 610,
+        "Масса": 43,
+        "Стандартный ЭИМ": "ES 06-4 / ST 0",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 125,
+        "PN": 16,
+        "D1": 184,
+        "D2": 210,
+        "D3": 245,
+        "L": 400,
+        "n": 8,
+        "d": 18,
+        "H": 755,
+        "Масса": 68,
+        "Стандартный ЭИМ": "ST 0.1",
+        "ΔP при стандартном ЭИМ, МПа": "4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 125,
+        "PN": 25,
+        "D1": 184,
+        "D2": 220,
+        "D3": 270,
+        "L": 400,
+        "n": 8,
+        "d": 26,
+        "H": 755,
+        "Масса": 68,
+        "Стандартный ЭИМ": "ST 0.1",
+        "ΔP при стандартном ЭИМ, МПа": "4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 125,
+        "PN": 40,
+        "D1": 184,
+        "D2": 220,
+        "D3": 270,
+        "L": 400,
+        "n": 8,
+        "d": 26,
+        "H": 755,
+        "Масса": 68,
+        "Стандартный ЭИМ": "ST 0.1",
+        "ΔP при стандартном ЭИМ, МПа": "4,0",
+        "Примечание": ""
+      },
+      {
+        "DN": 150,
+        "PN": 16,
+        "D1": 211,
+        "D2": 240,
+        "D3": 280,
+        "L": 480,
+        "n": 8,
+        "d": 22,
+        "H": 840,
+        "Масса": 102,
+        "Стандартный ЭИМ": "ST 0.1",
+        "ΔP при стандартном ЭИМ, МПа": "2,5",
+        "Примечание": ""
+      },
+      {
+        "DN": 150,
+        "PN": 25,
+        "D1": 211,
+        "D2": 250,
+        "D3": 300,
+        "L": 480,
+        "n": 8,
+        "d": 26,
+        "H": 840,
+        "Масса": 102,
+        "Стандартный ЭИМ": "ST 0.1",
+        "ΔP при стандартном ЭИМ, МПа": "2,5",
+        "Примечание": ""
+      },
+      {
+        "DN": 150,
+        "PN": 40,
+        "D1": 211,
+        "D2": 250,
+        "D3": 300,
+        "L": 480,
+        "n": 8,
+        "d": 26,
+        "H": 840,
+        "Масса": 102,
+        "Стандартный ЭИМ": "ST 0.1",
+        "ΔP при стандартном ЭИМ, МПа": "2,5",
+        "Примечание": ""
+      },
+      {
+        "DN": 200,
+        "PN": 16,
+        "D1": 266,
+        "D2": 295,
+        "D3": 335,
+        "L": 600,
+        "n": 12,
+        "d": 22,
+        "H": 870,
+        "Масса": 140,
+        "Стандартный ЭИМ": "ST 1",
+        "ΔP при стандартном ЭИМ, МПа": "4,0",
+        "Примечание": "Для уплотнения «нж» — ЭИМ ST 1 (ST 0.1 только для уплотнения «п»). ΔP не может превышать PN"
+      },
+      {
+        "DN": 200,
+        "PN": 25,
+        "D1": 274,
+        "D2": 310,
+        "D3": 360,
+        "L": 600,
+        "n": 12,
+        "d": 26,
+        "H": 870,
+        "Масса": 140,
+        "Стандартный ЭИМ": "ST 1",
+        "ΔP при стандартном ЭИМ, МПа": "4,0",
+        "Примечание": "Для уплотнения «нж» — ЭИМ ST 1 (ST 0.1 только для уплотнения «п»). ΔP не может превышать PN"
+      },
+      {
+        "DN": 200,
+        "PN": 40,
+        "D1": 284,
+        "D2": 320,
+        "D3": 375,
+        "L": 600,
+        "n": 12,
+        "d": 30,
+        "H": 870,
+        "Масса": 140,
+        "Стандартный ЭИМ": "ST 1",
+        "ΔP при стандартном ЭИМ, МПа": "4,0",
+        "Примечание": "Для уплотнения «нж» — ЭИМ ST 1 (ST 0.1 только для уплотнения «п»). ΔP не может превышать PN"
+      },
+      {
+        "DN": 250,
+        "PN": 16,
+        "D1": 319,
+        "D2": 355,
+        "D3": 405,
+        "L": 730,
+        "n": 12,
+        "d": 26,
+        "H": 870,
+        "Масса": 280,
+        "Стандартный ЭИМ": "ST 1 / ST 2",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 2,5",
+        "Примечание": "ΔP не может превышать PN"
+      },
+      {
+        "DN": 250,
+        "PN": 25,
+        "D1": 330,
+        "D2": 370,
+        "D3": 425,
+        "L": 730,
+        "n": 12,
+        "d": 30,
+        "H": 870,
+        "Масса": 280,
+        "Стандартный ЭИМ": "ST 1 / ST 2",
+        "ΔP при стандартном ЭИМ, МПа": "4,0 / 2,5",
+        "Примечание": "ΔP не может превышать PN"
+      },
+      {
+        "DN": 300,
+        "PN": 16,
+        "D1": 370,
+        "D2": 410,
+        "D3": 460,
+        "L": 850,
+        "n": 12,
+        "d": 26,
+        "H": 940,
+        "Масса": 350,
+        "Стандартный ЭИМ": "ST 1 / ST 2",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 4,0",
+        "Примечание": "ΔP не может превышать PN"
+      },
+      {
+        "DN": 300,
+        "PN": 25,
+        "D1": 389,
+        "D2": 430,
+        "D3": 485,
+        "L": 850,
+        "n": 16,
+        "d": 30,
+        "H": 940,
+        "Масса": 350,
+        "Стандартный ЭИМ": "ST 1 / ST 2",
+        "ΔP при стандартном ЭИМ, МПа": "1,6 / 4,0",
+        "Примечание": "ΔP не может превышать PN"
+      }
+    ]
+  }
+}

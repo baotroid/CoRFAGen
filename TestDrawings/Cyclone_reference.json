@@ -1,0 +1,779 @@
+{
+  "metadata": {
+    "name": "Cyclone",
+    "schema_version": "0.1",
+    "category": "Specialty Equipment",
+    "description": "Cyclone dust separator (reference model hand-built from Cyclone.pdf for testing FamFab): cone as a coaxial blend (built in Revit as a revolution), cylindrical body, outlet pipe with flange, volute tangential inlet (inlet flange outer edge 800 mm from the axis as dimensioned; inner wall runs from the flange tangent to the body, outer wall turns 45° tangentially into the body; tangent point computed for default sizes), inlet flange, discharge flange with bore, 4 support lugs (base plate + 2 triangular gussets, 200 mm) at the bottom of the cylindrical shell. Assumed: flange thicknesses, inlet length 450 along -Y.",
+    "prompt": "Front view + view A (bottom). Ø900 x 850 cylinder, cone 1620 to Ø200, discharge flange Ø300/Ø210, outlet Ø470 h90 with flange Ø580, inlet 250x420 with flange 355x520, 800 from axis to inlet flange edge."
+  },
+  "units": "millimeters",
+  "subcategories": [
+    "Body",
+    "Inlet",
+    "Outlet",
+    "Supports"
+  ],
+  "reference_planes": [
+    {
+      "name": "Base Level",
+      "direction": "z",
+      "offset": 0,
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Bottom Flange Top",
+      "direction": "z",
+      "offset": "Bottom_Flange_Thickness",
+      "is_reference": "Weak"
+    },
+    {
+      "name": "Cone Top",
+      "direction": "z",
+      "offset": "Cone_Height",
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Inlet Bottom",
+      "direction": "z",
+      "offset": "Cone_Height + Cylinder_Height - Inlet_Height",
+      "is_reference": "Weak"
+    },
+    {
+      "name": "Cylinder Top",
+      "direction": "z",
+      "offset": "Cone_Height + Cylinder_Height",
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Axis X",
+      "direction": "x",
+      "offset": 0,
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Axis Y",
+      "direction": "y",
+      "offset": 0,
+      "is_reference": "Strong"
+    },
+    {
+      "name": "Inlet Flange Plane",
+      "direction": "y",
+      "offset": "-Inlet_Length",
+      "is_reference": "Weak"
+    },
+    {
+      "name": "Gusset Plane Y Neg",
+      "direction": "y",
+      "offset": "-Gusset_Spacing / 2",
+      "is_reference": "Not a Reference"
+    },
+    {
+      "name": "Gusset Plane Y Pos",
+      "direction": "y",
+      "offset": "Gusset_Spacing / 2",
+      "is_reference": "Not a Reference"
+    },
+    {
+      "name": "Gusset Plane X Neg",
+      "direction": "x",
+      "offset": "-Gusset_Spacing / 2",
+      "is_reference": "Not a Reference"
+    },
+    {
+      "name": "Gusset Plane X Pos",
+      "direction": "x",
+      "offset": "Gusset_Spacing / 2",
+      "is_reference": "Not a Reference"
+    }
+  ],
+  "parameters": [
+    {
+      "name": "Cyclone Diameter",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 900,
+      "group": "Dimensions",
+      "description": "Outer diameter of the cylindrical body (drawing: Ø900)."
+    },
+    {
+      "name": "Cylinder Height",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 770,
+      "group": "Dimensions",
+      "description": "Height of the cylindrical body = 340 + 430 (drawing chain). Overall 850 on the drawing conflicts with the chain 340+430+90 = 860; the chain was chosen by the user."
+    },
+    {
+      "name": "Cone Height",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 1620,
+      "group": "Dimensions",
+      "description": "Height from the bottom of the discharge flange to the cone/cylinder joint (drawing: 1620)."
+    },
+    {
+      "name": "Cone Bottom Diameter",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 200,
+      "group": "Dimensions",
+      "description": "Diameter of the cone at the discharge (drawing: Ø200)."
+    },
+    {
+      "name": "Bottom Flange Diameter",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 300,
+      "group": "Dimensions",
+      "description": "Discharge flange outer diameter (view A: Ø300)."
+    },
+    {
+      "name": "Bottom Flange Bore",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 210,
+      "group": "Dimensions",
+      "description": "Discharge flange bore (view A: Ø210)."
+    },
+    {
+      "name": "Bottom Flange Thickness",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 15,
+      "group": "Construction",
+      "description": "Discharge flange thickness (assumed)."
+    },
+    {
+      "name": "Top Outlet Diameter",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 470,
+      "group": "Dimensions",
+      "description": "Clean-gas outlet pipe diameter (drawing: Ø470)."
+    },
+    {
+      "name": "Top Outlet Height",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 90,
+      "group": "Dimensions",
+      "description": "Outlet pipe height above the cylinder top (drawing: 90)."
+    },
+    {
+      "name": "Top Flange Diameter",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 580,
+      "group": "Dimensions",
+      "description": "Outlet flange diameter (drawing: Ø580)."
+    },
+    {
+      "name": "Flange Thickness",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 10,
+      "group": "Construction",
+      "description": "Thickness of outlet and inlet flanges (assumed)."
+    },
+    {
+      "name": "Pipe Wall",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 5,
+      "group": "Construction",
+      "description": "Wall thickness used for the outlet bore (assumed)."
+    },
+    {
+      "name": "Inlet Width",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 250,
+      "group": "Dimensions",
+      "description": "Inlet duct inside width (drawing: 250)."
+    },
+    {
+      "name": "Inlet Height",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 420,
+      "group": "Dimensions",
+      "description": "Inlet duct inside height (drawing: 420)."
+    },
+    {
+      "name": "Inlet Flange Offset",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 800,
+      "group": "Dimensions",
+      "description": "Distance from the cyclone axis to the outer edge of the inlet flange (drawing: 800)."
+    },
+    {
+      "name": "Inlet Length",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 450,
+      "group": "Dimensions",
+      "description": "Distance from the cyclone axis plane to the inlet flange face along -Y (assumed = body radius)."
+    },
+    {
+      "name": "Inlet Flange Width",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 355,
+      "group": "Dimensions",
+      "description": "Inlet flange outer width (drawing: 355)."
+    },
+    {
+      "name": "Inlet Flange Height",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 520,
+      "group": "Dimensions",
+      "description": "Inlet flange outer height (drawing: 520)."
+    },
+    {
+      "name": "Lug Height",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 200,
+      "group": "Dimensions",
+      "description": "Height of the support lug gussets above the cylinder/cone joint."
+    },
+    {
+      "name": "Lug Projection",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 100,
+      "group": "Dimensions",
+      "description": "Radial projection of the support lugs from the shell."
+    },
+    {
+      "name": "Lug Plate Width",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 150,
+      "group": "Construction",
+      "description": "Width of the lug base plate."
+    },
+    {
+      "name": "Lug Plate Thickness",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 12,
+      "group": "Construction",
+      "description": "Thickness of the lug base plate."
+    },
+    {
+      "name": "Gusset Thickness",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 10,
+      "group": "Construction",
+      "description": "Thickness of the lug gussets."
+    },
+    {
+      "name": "Gusset Spacing",
+      "type": "length",
+      "instance_or_type": "type",
+      "default_value": 120,
+      "group": "Construction",
+      "description": "Distance between the two gussets of one lug."
+    }
+  ],
+  "geometry": [
+    {
+      "name": "Bottom Flange",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Base Level",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Bottom_Flange_Diameter / 2"
+      },
+      "extrusion_start": 0,
+      "extrusion_end": "Bottom_Flange_Thickness"
+    },
+    {
+      "name": "Bottom Flange Bore",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": true,
+      "sketch_plane": "Base Level",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Bottom_Flange_Bore / 2"
+      },
+      "extrusion_start": -1,
+      "extrusion_end": "Bottom_Flange_Thickness"
+    },
+    {
+      "name": "Cone",
+      "type": "blend",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Bottom Flange Top",
+      "bottom_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Cone_Bottom_Diameter / 2"
+      },
+      "top_profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Cyclone_Diameter / 2"
+      },
+      "bottom_offset": 0,
+      "top_offset": "Cone_Height - Bottom_Flange_Thickness"
+    },
+    {
+      "name": "Cylindrical Body",
+      "type": "extrusion",
+      "subcategory": "Body",
+      "is_void": false,
+      "sketch_plane": "Cone Top",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Cyclone_Diameter / 2"
+      },
+      "extrusion_start": 0,
+      "extrusion_end": "Cylinder_Height"
+    },
+    {
+      "name": "Top Outlet Pipe",
+      "type": "extrusion",
+      "subcategory": "Outlet",
+      "is_void": false,
+      "sketch_plane": "Cylinder Top",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Top_Outlet_Diameter / 2"
+      },
+      "extrusion_start": 0,
+      "extrusion_end": "Top_Outlet_Height"
+    },
+    {
+      "name": "Top Outlet Flange",
+      "type": "extrusion",
+      "subcategory": "Outlet",
+      "is_void": false,
+      "sketch_plane": "Cylinder Top",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Top_Flange_Diameter / 2"
+      },
+      "extrusion_start": "Top_Outlet_Height - Flange_Thickness",
+      "extrusion_end": "Top_Outlet_Height"
+    },
+    {
+      "name": "Top Outlet Bore",
+      "type": "extrusion",
+      "subcategory": "Outlet",
+      "is_void": true,
+      "sketch_plane": "Cylinder Top",
+      "profile": {
+        "shape": "circle",
+        "center": {
+          "u": 0,
+          "v": 0
+        },
+        "radius": "Top_Outlet_Diameter / 2 - Pipe_Wall"
+      },
+      "extrusion_start": 0,
+      "extrusion_end": "Top_Outlet_Height + 1"
+    },
+    {
+      "name": "Tangential Inlet Volute",
+      "type": "extrusion",
+      "subcategory": "Inlet",
+      "is_void": false,
+      "sketch_plane": "Inlet Bottom",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "Inlet_Flange_Offset - (Inlet_Flange_Width - Inlet_Width) / 2 - Inlet_Width",
+            "v": "-Inlet_Length"
+          },
+          {
+            "u": "Inlet_Flange_Offset - (Inlet_Flange_Width - Inlet_Width) / 2",
+            "v": "-Inlet_Length"
+          },
+          {
+            "u": "Inlet_Flange_Offset - (Inlet_Flange_Width - Inlet_Width) / 2",
+            "v": "Cyclone_Diameter / 2 * 1.41421356 - (Inlet_Flange_Offset - (Inlet_Flange_Width - Inlet_Width) / 2)"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 * 0.70710678",
+            "v": "Cyclone_Diameter / 2 * 0.70710678"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 * 0.86602540",
+            "v": "Cyclone_Diameter / 2 * 0.50000000"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 * 0.96592583",
+            "v": "Cyclone_Diameter / 2 * 0.25881905"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 * 0.99498618",
+            "v": "Cyclone_Diameter / 2 * 0.10001250"
+          }
+        ]
+      },
+      "extrusion_start": 0,
+      "extrusion_end": "Inlet_Height"
+    },
+    {
+      "name": "Inlet Flange",
+      "type": "extrusion",
+      "subcategory": "Inlet",
+      "is_void": false,
+      "sketch_plane": "Inlet Flange Plane",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "Inlet_Flange_Offset - Inlet_Flange_Width",
+          "v": "Cone_Height + Cylinder_Height - Inlet_Height / 2 - Inlet_Flange_Height / 2"
+        },
+        "width": "Inlet_Flange_Width",
+        "height": "Inlet_Flange_Height"
+      },
+      "extrusion_start": "-Flange_Thickness",
+      "extrusion_end": 0
+    },
+    {
+      "name": "Inlet Opening",
+      "type": "extrusion",
+      "subcategory": "Inlet",
+      "is_void": true,
+      "sketch_plane": "Inlet Flange Plane",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "Inlet_Flange_Offset - (Inlet_Flange_Width - Inlet_Width) / 2 - Inlet_Width + Flange_Thickness",
+          "v": "Cone_Height + Cylinder_Height - Inlet_Height + Flange_Thickness"
+        },
+        "width": "Inlet_Width - 2 * Flange_Thickness",
+        "height": "Inlet_Height - 2 * Flange_Thickness"
+      },
+      "extrusion_start": "-Flange_Thickness - 1",
+      "extrusion_end": 30
+    },
+    {
+      "name": "Lug Plate Right",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Cone Top",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "Cyclone_Diameter / 2 - 10",
+          "v": "-Lug_Plate_Width / 2"
+        },
+        "width": "Lug_Projection + 10",
+        "height": "Lug_Plate_Width"
+      },
+      "extrusion_start": "-Lug_Plate_Thickness",
+      "extrusion_end": 0
+    },
+    {
+      "name": "Lug Gusset Right Neg",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane Y Neg",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 + Lug_Projection",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Gusset Right Pos",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane Y Pos",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 + Lug_Projection",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Plate Left",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Cone Top",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "-(Cyclone_Diameter / 2 + Lug_Projection)",
+          "v": "-Lug_Plate_Width / 2"
+        },
+        "width": "Lug_Projection + 10",
+        "height": "Lug_Plate_Width"
+      },
+      "extrusion_start": "-Lug_Plate_Thickness",
+      "extrusion_end": 0
+    },
+    {
+      "name": "Lug Gusset Left Neg",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane Y Neg",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 + Lug_Projection)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Gusset Left Pos",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane Y Pos",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 + Lug_Projection)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Plate Back",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Cone Top",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "-Lug_Plate_Width / 2",
+          "v": "Cyclone_Diameter / 2 - 10"
+        },
+        "width": "Lug_Plate_Width",
+        "height": "Lug_Projection + 10"
+      },
+      "extrusion_start": "-Lug_Plate_Thickness",
+      "extrusion_end": 0
+    },
+    {
+      "name": "Lug Gusset Back Neg",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane X Neg",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 + Lug_Projection",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Gusset Back Pos",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane X Pos",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 + Lug_Projection",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "Cyclone_Diameter / 2 - 5",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Plate Front",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Cone Top",
+      "profile": {
+        "shape": "rectangle",
+        "origin": {
+          "u": "-Lug_Plate_Width / 2",
+          "v": "-(Cyclone_Diameter / 2 + Lug_Projection)"
+        },
+        "width": "Lug_Plate_Width",
+        "height": "Lug_Projection + 10"
+      },
+      "extrusion_start": "-Lug_Plate_Thickness",
+      "extrusion_end": 0
+    },
+    {
+      "name": "Lug Gusset Front Neg",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane X Neg",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 + Lug_Projection)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    },
+    {
+      "name": "Lug Gusset Front Pos",
+      "type": "extrusion",
+      "subcategory": "Supports",
+      "is_void": false,
+      "sketch_plane": "Gusset Plane X Pos",
+      "profile": {
+        "shape": "custom",
+        "vertices": [
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 + Lug_Projection)",
+            "v": "Cone_Height"
+          },
+          {
+            "u": "-(Cyclone_Diameter / 2 - 5)",
+            "v": "Cone_Height + Lug_Height"
+          }
+        ]
+      },
+      "extrusion_start": "-Gusset_Thickness / 2",
+      "extrusion_end": "Gusset_Thickness / 2"
+    }
+  ],
+  "constraints": [
+    {
+      "description": "Cylinder on cone top",
+      "type": "alignment",
+      "geometry": "Cylindrical Body",
+      "reference_plane": "Cone Top"
+    }
+  ]
+}

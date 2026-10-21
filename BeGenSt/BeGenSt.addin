@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RevitAddIns>
+  <AddIn Type="Application">
+    <Name>BeGenSt</Name>
+    <Assembly>BeGenSt\BeGenSt.dll</Assembly>
+    <FullClassName>BeGenSt.App</FullClassName>
+    <ClientId>804842f2-ca0c-44dc-9ea1-f6a266d481db</ClientId>
+    <VendorId>BeGenSt</VendorId>
+    <VendorDescription>BeGenSt (based on ArchSmarter FamFab, MIT)</VendorDescription>
+  </AddIn>
+</RevitAddIns>

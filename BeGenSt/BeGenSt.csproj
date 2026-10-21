@@ -1,0 +1,190 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+<PropertyGroup>
+	<UseWPF>true</UseWPF>
+	<UseWindowsForms>true</UseWindowsForms>
+	<LangVersion>latest</LangVersion>
+	<PlatformTarget>x64</PlatformTarget>
+	<ImplicitUsings>true</ImplicitUsings>
+	<PublishAddinFiles>true</PublishAddinFiles>
+	<Configurations>Debug R20;Debug R21;Debug R22;Debug R23;Debug R24;Debug R25;Debug R26;Debug R27</Configurations>
+	<Configurations>$(Configurations);Release R20;Release R21;Release R22;Release R23;Release R24;Release R25;Release R26;Release R27</Configurations>
+	<Nullable>disable</Nullable>
+	<GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+	<ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>None</ResolveAssemblyWarnOrErrorOnTargetArchitectureMismatch>
+	<AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+</PropertyGroup>
+
+<PropertyGroup Condition="$(Configuration.Contains('R20'))">
+	<RevitVersion>2020</RevitVersion>
+	<TargetFramework>net48</TargetFramework>
+	<EnableNETAnalyzers>false</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2020</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R21'))">
+    	<RevitVersion>2021</RevitVersion>
+    	<TargetFramework>net48</TargetFramework>
+    	<EnableNETAnalyzers>false</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2021</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R22'))">
+    	<RevitVersion>2022</RevitVersion>
+    	<TargetFramework>net48</TargetFramework>
+	<EnableNETAnalyzers>false</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2022</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R23'))">
+	<RevitVersion>2023</RevitVersion>
+    	<TargetFramework>net48</TargetFramework>
+	<EnableNETAnalyzers>false</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2023</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R24'))">
+	<RevitVersion>2024</RevitVersion>
+    	<TargetFramework>net48</TargetFramework>
+	<EnableNETAnalyzers>false</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2024</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R25'))">
+	<RevitVersion>2025</RevitVersion>
+	<TargetFramework>net8.0-windows</TargetFramework>
+    	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2025</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R26'))">
+	<RevitVersion>2026</RevitVersion>
+	<TargetFramework>net8.0-windows</TargetFramework>
+    	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2026</DefineConstants>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('R27'))">
+	<RevitVersion>2027</RevitVersion>
+	<TargetFramework>net10.0-windows</TargetFramework>
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	<EnableNETAnalyzers>true</EnableNETAnalyzers>
+	<DefineConstants>$(DefineConstants);REVIT2027</DefineConstants>
+</PropertyGroup>
+	
+<!-- Revit API reference package. 2026 is pinned to 2026.0.0 (.NET 8): newer 2026.x API packages are built
+     against .NET 10 (Revit 2026.5) and cannot be referenced from net8.0; a net8 add-in also loads in 2026.5. -->
+<PropertyGroup>
+	<RevitApiPackageVersion>$(RevitVersion).*</RevitApiPackageVersion>
+	<RevitApiPackageVersion Condition="'$(RevitVersion)' == '2026'">2026.0.0</RevitApiPackageVersion>
+</PropertyGroup>
+
+<PropertyGroup Condition="$(Configuration.Contains('Debug'))">
+	<Optimize>False</Optimize>
+	<OutputPath>bin\Debug\$(RevitVersion)</OutputPath>
+	<DebugType>Full</DebugType>
+</PropertyGroup>
+<PropertyGroup Condition="$(Configuration.Contains('Release'))">
+	<Optimize>True</Optimize>
+	<OutputPath>bin\Release\$(RevitVersion)</OutputPath>
+	<DebugType>None</DebugType>
+</PropertyGroup>
+
+<PropertyGroup>
+	<Version>$(RevitVersion)</Version>
+    	<StartAction>Program</StartAction>
+    	<StartProgram>$(ProgramW6432)\Autodesk\Revit $(RevitVersion)\Revit.exe</StartProgram>
+    	<StartArguments>/language ENG</StartArguments>
+</PropertyGroup>
+
+<ItemGroup>
+  <None Remove="Resources\pregen-16.png" />
+  <None Remove="Resources\pregen-32.png" />
+</ItemGroup>
+
+<ItemGroup>
+	<EmbeddedResource Include="EmbeddedContent\SKILL.md" />
+	<EmbeddedResource Include="EmbeddedContent\family-schema.json" />
+	<EmbeddedResource Include="EmbeddedContent\revit-family-viewer.html" />
+</ItemGroup>
+
+<ItemGroup>
+  	<PackageReference Include="System.Drawing.Common" Version="8.0.3" IncludeAssets="build; compile" PrivateAssets="All" />
+  	<PackageReference Include="Revit_All_Main_Versions_API_x64" Version="$(RevitApiPackageVersion)" IncludeAssets="build; compile" PrivateAssets="All" />
+  	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
+  	<!-- PDF -> PNG rendering (pdfium) for providers without PDF input (DeepSeek) -->
+  	<PackageReference Include="Docnet.Core" Version="2.6.0" GeneratePathProperty="true" />
+</ItemGroup>
+
+<!-- Put pdfium.dll (x64) right next to BeGenSt.dll for every target framework; PdfRasterizer preloads it from there. -->
+<Target Name="CopyPdfiumNative" AfterTargets="CopyFilesToOutputDirectory">
+	<ItemGroup>
+		<PdfiumNative Include="$(PkgDocnet_Core)\runtimes\win-x64\native\*.dll" />
+	</ItemGroup>
+	<Copy SourceFiles="@(PdfiumNative)" DestinationFolder="$(OutDir)" SkipUnchangedFiles="true" Condition="'@(PdfiumNative)' != ''" />
+	<Warning Code="BEGENST03" Text="pdfium.dll was not found in the Docnet.Core package - PDF rendering for DeepSeek will be unavailable." Condition="'@(PdfiumNative)' == ''" />
+</Target>
+
+<!-- FIX (Revit 2020-2024 / .NET Framework 4.8):
+     в .NET Framework нет встроенных System.Net.Http (ошибка CS0234) и System.Text.Json.
+     Подключаем ссылку на сборку и NuGet-пакет; зависимости копируются в выходную папку. -->
+<PropertyGroup Condition="'$(TargetFramework)' == 'net48'">
+	<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+</PropertyGroup>
+<ItemGroup Condition="'$(TargetFramework)' == 'net48'">
+	<Reference Include="System.Net.Http" />
+	<PackageReference Include="System.Text.Json" Version="8.0.5" />
+</ItemGroup>
+	
+<!-- Deploy to %AppData% only for normal developer builds; the MSI build passes SkipDeploy=true -->
+<PropertyGroup Condition="'$(SkipDeploy)' != 'true'">
+	<PostBuildEvent>
+echo *** Configuration: $(Configuration)
+echo *** Copying results to $(RevitVersion)
+echo *** $(MSBuildProjectDirectory)
+if not exist "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\BeGenSt" mkdir "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\BeGenSt"
+copy "$(MSBuildProjectDirectory)\*.addin" "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)"
+copy "$(TargetDir)*.dll" "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\BeGenSt" || echo warning BEGENST01: Could not copy the add-in DLLs to the Revit Addins folder. Close Revit $(RevitVersion) and rebuild, otherwise Revit keeps loading the OLD version of BeGenSt.
+if exist "$(TargetDir)runtimes" xcopy "$(TargetDir)runtimes" "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\BeGenSt\runtimes" /E /I /Y || echo warning BEGENST02: Could not copy WebView2 runtimes. Close Revit $(RevitVersion) and rebuild.
+rem Remove the manifest of the old ArchSmarter FamFab add-in so Revit does not load two tabs
+if exist "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\ArchSmarterFamFab.addin" del "$(AppData)\Autodesk\REVIT\Addins\$(RevitVersion)\ArchSmarterFamFab.addin"
+exit 0
+	</PostBuildEvent>
+</PropertyGroup>
+<PropertyGroup>
+	<RunAnalyzersDuringBuild>False</RunAnalyzersDuringBuild>
+	<RunAnalyzersDuringLiveAnalysis>False</RunAnalyzersDuringLiveAnalysis>
+	<Copyright>2026 BeGenSt; based on ArchSmarter FamFab (MIT)</Copyright>
+</PropertyGroup>
+	
+<ItemGroup>
+  <Resource Include="Resources\pregen-16.png" />
+  <Resource Include="Resources\pregen-32.png" />
+</ItemGroup>
+	
+<ItemGroup>
+	<Compile Update="Properties\Resources.Designer.cs">
+    		<DesignTime>True</DesignTime>
+    		<AutoGen>True</AutoGen>
+    		<DependentUpon>Resources.resx</DependentUpon>
+  	</Compile>
+  	<Compile Update="Properties\Settings.Designer.cs">
+    		<DesignTimeSharedInput>True</DesignTimeSharedInput>
+    		<AutoGen>True</AutoGen>
+    		<DependentUpon>Settings.settings</DependentUpon>
+  	</Compile>
+</ItemGroup>
+	
+<ItemGroup>
+	<EmbeddedResource Update="Properties\Resources.resx">
+    		<Generator>ResXFileCodeGenerator</Generator>
+    		<LastGenOutput>Resources.Designer.cs</LastGenOutput>
+  	</EmbeddedResource>
+</ItemGroup>
+	
+<ItemGroup>
+	<None Update="Properties\Settings.settings">
+		<Generator>SettingsSingleFileGenerator</Generator>
+		<LastGenOutput>Settings.Designer.cs</LastGenOutput>
+	</None>
+	<None Update="RegisterAddin.addin">
+		<CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+	</None>
+</ItemGroup>
+  
+</Project>

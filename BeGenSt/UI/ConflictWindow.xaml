@@ -1,0 +1,73 @@
+<Window x:Class="BeGenSt.UI.ConflictWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="RFAGen - Source data check"
+        Width="620"
+        Height="600"
+        MinWidth="460"
+        MinHeight="360"
+        WindowStartupLocation="CenterOwner"
+        WindowStyle="None"
+        AllowsTransparency="True"
+        Background="Transparent"
+        ResizeMode="CanResize"
+        FontFamily="Segoe UI">
+
+    <WindowChrome.WindowChrome>
+        <WindowChrome CaptionHeight="0" ResizeBorderThickness="6" CornerRadius="8" GlassFrameThickness="0"/>
+    </WindowChrome.WindowChrome>
+
+    <Window.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="RFAGenStyles.xaml"/>
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+    </Window.Resources>
+
+    <Border Background="{StaticResource BackgroundBrush}" BorderBrush="{StaticResource AccentBrush}"
+            BorderThickness="1" CornerRadius="8">
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="Auto"/>
+            </Grid.RowDefinitions>
+
+            <Border Background="{StaticResource TitleBarBrush}" CornerRadius="8,8,0,0" Padding="16,10"
+                    MouseDown="TitleBar_MouseDown">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock FontSize="14" FontWeight="Bold" Foreground="White">
+                        <Run Text="RFA"/><Run Text="|" Foreground="{StaticResource AccentBrush}"/><Run Text="Gen"/>
+                    </TextBlock>
+                    <TextBlock Text="  ·  Source data check" FontSize="11" Foreground="{StaticResource YellowBrush}"
+                               VerticalAlignment="Center"/>
+                </StackPanel>
+            </Border>
+
+            <StackPanel Grid.Row="1" Margin="24,16,24,8">
+                <TextBlock Text="The source files contain conflicting data." FontSize="15" FontWeight="SemiBold"
+                           Foreground="{StaticResource AccentBrush}"/>
+                <TextBlock Text="Choose which value to use for each conflict. The generation will follow your choice."
+                           TextWrapping="Wrap" Margin="0,4,0,0"/>
+                <TextBlock x:Name="TxtSummary" TextWrapping="Wrap" Margin="0,8,0,0" FontSize="11"
+                           Foreground="{StaticResource TextSecondaryBrush}"/>
+            </StackPanel>
+
+            <ScrollViewer Grid.Row="2" Margin="24,4,12,4" VerticalScrollBarVisibility="Auto">
+                <StackPanel x:Name="ConflictPanel" Margin="0,0,12,0"/>
+            </ScrollViewer>
+
+            <Grid Grid.Row="3" Margin="24,8,24,20">
+                <Button Content="Use recommended" Style="{StaticResource GhostButton}" HorizontalAlignment="Left"
+                        Click="BtnRecommended_Click"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                    <Button Content="Cancel" Style="{StaticResource SecondaryButton}" Margin="0,0,10,0"
+                            Click="BtnCancel_Click" IsCancel="True"/>
+                    <Button Content="Continue" Style="{StaticResource PrimaryButton}" Click="BtnOk_Click" IsDefault="True"/>
+                </StackPanel>
+            </Grid>
+        </Grid>
+    </Border>
+</Window>
