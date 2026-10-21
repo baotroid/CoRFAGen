@@ -1,5 +1,7 @@
 # История разработки BeGenSt · PDF&Pic2RFA (по чату с Claude, сентябрь–октябрь 2026)
 
+*Русский · [English version below](#english-version)*
+
 ## Исходная задача
 Открытый плагин ArchSmarter **FamFab** (Revit, семейство по картинке через Claude API):
 1. проверить работоспособность — в VS не появлялась вкладка, ошибка **CS0234**;
@@ -30,3 +32,40 @@
 * Платные модели OpenRouter для теста: `thinkingmachines/inkling-small`, `qwen/qwen3.8-27b`.
 * OpenAI GPT-5.6 Luna (нативный PDF) — отдельный клиент, если появится ключ.
 * Refine в предпросмотре пока не передаёт инструкции сопоставления параметров (имена уже в JSON).
+
+---
+
+## English version
+
+### Development history of BeGenSt · PDF&Pic2RFA (from the chat with Claude, September–October 2026)
+
+#### Original task
+The open-source ArchSmarter **FamFab** add-in (Revit, a family from a picture via the Claude API):
+1. check that it works — the tab did not appear in VS, error **CS0234**;
+2. rework it: a family from a **2D vector PDF drawing (≥ 2 views)**, support for **Gemini** in addition to Claude.
+
+#### Versions and decisions
+
+| Version | What was done |
+|---|---|
+| 0.x (FamFab fix) | CS0234/System.Text.Json on net48: System.Net.Http reference + System.Text.Json package; TLS 1.2; assembly resolve from the add-in folder. PDF as input (Claude document / Gemini inline_data), Gemini client, provider selection. |
+| — | Cyclone (`TestDrawings/Cyclone_reference.json`): revolutions for the cone, parallel planes for blends, tangential inlet (inner wall tangent, outer wall at 45° to the tangent), support legs ~200 mm only at the bottom of the cylinder, inlet flange 800 mm from the axis, height 860 (chain 340+430+90). Cause of the "missing cone" — an old DLL (Revit held the file). |
+| 1.0.0 | Renaming: tab **BeGenSt**, panel **PDF&Pic2RFA**, buttons PreGenerate / RFAGen; dark grey UI with orange/yellow/white; up to 3 files (PDF/JPG/PNG); technical data from PDF → parameters (built-in Model/Manufacturer/…, typed mass/kW/m³/h…, text); source data check with a conflict dialog; model verification before the preview (GeometryInspector + AI). WiX v5 MSI for Revit 2024–2027 (`BuildInstaller.cmd`). Skill `rfagen-json-from-drawing` — JSON without an API key. |
+| 1.1.0 | **DeepSeek** provider (OpenAI-compatible). It does not accept PDF → local PDF rasterization (Docnet.Core/pdfium) + text layer. Test result: ~13 elements vs ~30 for Claude/Gemini (the image is downscaled to ~1300 px). |
+| — | Analysis of alternatives: `docs/BeGenSt_AI_models_comparison.xlsx` (Qwen, GPT-5.6 Luna, Gemini Flash/Lite, Mistral, GLM…). |
+| 1.2.0 | DeepSeek replaced by **Alibaba Qwen** (qwen3.7-plus, PDF pages at 3600 px, up to 16 MP per image), Base URL field (keys are bound to a region). |
+| 1.2.1 | Models with "/" in the name go to **OpenRouter** (`https://openrouter.ai/api/v1`) with a separate OpenRouter key. |
+| 1.2.2 | "Missing Authentication header": key cleanup from invisible characters, typed Authorization header, 401 diagnostics (masked key). Free OpenRouter models: qwen3.8-27b:free withdrawn, inkling-small:free — for agent apps only (not bypassed). |
+| 1.3.0 | **Purge** button (unused elements, several passes, compact save — file size reduced 3–4 times). Checkboxes: **family/template parameters** (ru/en language detected automatically) and **ФОП** (shared parameters from a .txt file). New icons (dark grey/blue/yellow); PreGenerate → **Generate**. Russian reference planes of the template are not deleted. |
+| 1.3.1 | Parameter mapping/translation also for **Load JSON** (AI if a key is present, otherwise a dictionary); renaming inside expressions. **Family type** = family name from the add-in. **Description** = "Name" + technical characteristics. Purge is the first button. |
+| 1.4.0 | **TypeGen**: a family with many types from a catalog table (TypeGen window: AI reads the table, editable table, figure/prefix/name pattern, one parametric template, L/H check for every type, 3D preview of a type, Save/Load catalog JSON). Generator: types, type parameters, geometry sets with visibility (BGS_Набор / BGS_Видимость_NN), "holes" with a polar array, actuator toggle "Показать_привод" (Show actuator), automatic Purge. Parameter substitution in expressions is by whole identifiers. Reference: Avangard KZRr 25s947nzh valve, 40 types. |
+| 1.4.1 | After the TypeGen test: **lookup table** BGS_Catalog (CSV, size_lookup by DN+PN with a check of every type, fallback to values on mismatch) + types for every row; **2 pipe connectors** (Global) at ±L/2 on hidden discs, length bound to L, diameter = DN; category "Generic Models" → **"Pipe Accessories"**, part type "Valve – Insert"; per-element polar array `pattern`; detailed reference valve (27 elements: conical branch pipes, body of two cones, bonnet with studs, yoke, actuator with motor and handwheel); helper parameters renamed to ASCII (BGS_Set, BGS_Vis_NN, BGS_Conn_*, BGS_Zero). Note: 1.3.1 was installed during the test — build 1.4.0 was not run. |
+| 1.4.2 | TypeGen: void extrusions (the body opening) of all sets were visible in the Family Editor, including in "Visibility/Graphics" — voids have no "Visible" parameter. Now all voids are hidden in all family views after cutting (cuts are kept; use "Reveal Hidden Elements" to see them). |
+| 1.4.3 | Per the generation report: all 805 elements were created (35 × 23 sets; "805/621" — the expected count did not include array copies, fixed). Template parameters D2, D3, L, n, d, H had formulas / were read-only → catalog values were not written, connector and size_lookup formulas were rejected. Now catalog columns are converted to ordinary type parameters (formula removed, instance → type, "reporting" → normal, recorded in the report); integer columns (DN, n) are numeric for size_lookup; connector fallback — per-type values; the report shows the text of a rejected formula and the key types. |
+| 1.4.4 | Test in the existing family Avangard.rfa (its own lookup tables LTG, ЗРК_Геометрия, РК_Приводы, РК_Регада, instance parameters with size_lookup): errors "Could not create extrusion" when switching types and a foreign actuator. Now: a warning before generating into a family with its own content (nested families, lookup tables, dimensions) recommending a new family; a Revit error log (FailureLog) with names of created elements in the report; lookup table and size_lookup formulas in a separate transaction after the main one, with formula variants and the rejection reason recorded; the report is saved after Purge. **Purge → "Full clean before generation"**: besides unused elements it removes the family's own content — geometry, connectors, nested families, dimensions, lines, reference lines and its own reference planes, lookup tables and size_lookup formulas (parameters are kept); the same is offered in TypeGen before generation. |
+
+#### Open questions / ideas
+* Test 1.3.1: Load JSON + ФОП (Russian) with and without a key.
+* Paid OpenRouter models to test: `thinkingmachines/inkling-small`, `qwen/qwen3.8-27b`.
+* OpenAI GPT-5.6 Luna (native PDF) — a separate client if a key becomes available.
+* Refine in the preview does not yet pass parameter-mapping instructions (names are already in the JSON).

@@ -7,8 +7,8 @@ shows a 3D preview and writes the family. **TypeGen** builds a family with many 
 (unused elements + compact save, or a full clean before a new generation) and mapping of technical data to
 family / shared parameters (ФОП) in the family's language.
 
-* Documentation (Russian): [README_RU.md](README_RU.md)
-* Development history: [docs/HISTORY_RU.md](docs/HISTORY_RU.md)
+* Documentation (Russian + English): [README_RU.md](README_RU.md#english-version)
+* Development history (Russian + English): [docs/HISTORY_RU.md](docs/HISTORY_RU.md#english-version)
 * For AI assistants: [CLAUDE.md](CLAUDE.md)
 * Claude skill (family JSON from drawings without an API key): [skills/rfagen-json-from-drawing](skills/rfagen-json-from-drawing/SKILL.md)
 * Installer: see **Releases** (`BeGenSt_PDFPic2RFA_<version>.msi`)

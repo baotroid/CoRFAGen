@@ -371,3 +371,5 @@ Installer/bin/
 Installer/obj/
 # Office lock files
 ~$*
+# one-off task files for Claude Code (kept locally, not published)
+docs/HANDOFF*.md
