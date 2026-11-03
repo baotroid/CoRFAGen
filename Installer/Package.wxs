@@ -1,34 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  BeGenSt · PDF&Pic2RFA (RFAGen) — MSI for Revit 2024–2027 (WiX Toolset v5, MS-RL).
+  CoRFAGen — MSI for Revit 2024–2027 (WiX Toolset v5, MS-RL).
   Installs per machine into C:\ProgramData\Autodesk\Revit\Addins\<year>\ (standard Autodesk location).
-  BinRoot = folder with bin\Release\2024 … 2027 of the BeGenSt project.
+  BinRoot = folder with bin\Release\2024 … 2027 of the CoRFAGen project.
 -->
 <Wix xmlns="http://wixtoolset.org/schemas/v4/wxs">
 
-  <Package Name="BeGenSt PDF&amp;Pic2RFA for Revit 2024-2027"
-           Manufacturer="BeGenSt"
+  <Package Name="CoRFAGen plug-in for Autodesk Revit 2024-2027"
+           Manufacturer="CoRFAGen"
            Version="$(var.ProductVersion)"
            UpgradeCode="CB76E3B1-9C40-4958-A13C-9AA08D3CB287"
            Scope="perMachine"
            Language="1033"
            Compressed="yes">
 
-    <SummaryInformation Description="BeGenSt RFAGen: Revit families from DWG/DXF and PDF drawings, photos and sketches" />
-    <MajorUpgrade DowngradeErrorMessage="A newer version of BeGenSt is already installed." />
+    <SummaryInformation Description="CoRFAGen, plug-in for Autodesk Revit: families from DWG/DXF and PDF drawings, photos and sketches" />
+    <MajorUpgrade DowngradeErrorMessage="A newer version of CoRFAGen is already installed." />
     <MediaTemplate EmbedCab="yes" />
 
-    <Property Id="ARPCOMMENTS" Value="Revit add-in: tab BeGenSt, panel PDF&amp;Pic2RFA (PreGenerate / Settings)" />
+    <Property Id="ARPCOMMENTS" Value="Plug-in for Autodesk Revit: tab CoRFAGen, panel Family Generator. Autodesk and Revit are trademarks of Autodesk, Inc.; CoRFAGen is not affiliated with Autodesk, Inc." />
     <Property Id="ARPNOMODIFY" Value="1" />
 
     <StandardDirectory Id="CommonAppDataFolder">
       <Directory Id="AutodeskDir" Name="Autodesk">
         <Directory Id="RevitDir" Name="Revit">
           <Directory Id="AddinsDir" Name="Addins">
-            <Directory Id="Dir2024" Name="2024"><Directory Id="App2024" Name="BeGenSt" /></Directory>
-            <Directory Id="Dir2025" Name="2025"><Directory Id="App2025" Name="BeGenSt" /></Directory>
-            <Directory Id="Dir2026" Name="2026"><Directory Id="App2026" Name="BeGenSt" /></Directory>
-            <Directory Id="Dir2027" Name="2027"><Directory Id="App2027" Name="BeGenSt" /></Directory>
+            <Directory Id="Dir2024" Name="2024"><Directory Id="App2024" Name="CoRFAGen" /></Directory>
+            <Directory Id="Dir2025" Name="2025"><Directory Id="App2025" Name="CoRFAGen" /></Directory>
+            <Directory Id="Dir2026" Name="2026"><Directory Id="App2026" Name="CoRFAGen" /></Directory>
+            <Directory Id="Dir2027" Name="2027"><Directory Id="App2027" Name="CoRFAGen" /></Directory>
           </Directory>
         </Directory>
       </Directory>
@@ -51,37 +51,41 @@
     <Feature Id="R2024" Title="Revit 2024" Level="1">
       <ComponentGroupRef Id="Bin2024" />
       <Component Id="Addin2024" Directory="Dir2024">
-        <File Id="Addin2024" Source="$(var.AddinFile)" Name="BeGenSt.addin" />
+        <File Id="Addin2024" Source="$(var.AddinFile)" Name="CoRFAGen.addin" />
       </Component>
     </Feature>
     <Feature Id="R2025" Title="Revit 2025" Level="1">
       <ComponentGroupRef Id="Bin2025" />
       <Component Id="Addin2025" Directory="Dir2025">
-        <File Id="Addin2025" Source="$(var.AddinFile)" Name="BeGenSt.addin" />
+        <File Id="Addin2025" Source="$(var.AddinFile)" Name="CoRFAGen.addin" />
       </Component>
     </Feature>
     <Feature Id="R2026" Title="Revit 2026" Level="1">
       <ComponentGroupRef Id="Bin2026" />
       <Component Id="Addin2026" Directory="Dir2026">
-        <File Id="Addin2026" Source="$(var.AddinFile)" Name="BeGenSt.addin" />
+        <File Id="Addin2026" Source="$(var.AddinFile)" Name="CoRFAGen.addin" />
       </Component>
     </Feature>
     <Feature Id="R2027" Title="Revit 2027" Level="1">
       <ComponentGroupRef Id="Bin2027" />
       <Component Id="Addin2027" Directory="Dir2027">
-        <File Id="Addin2027" Source="$(var.AddinFile)" Name="BeGenSt.addin" />
+        <File Id="Addin2027" Source="$(var.AddinFile)" Name="CoRFAGen.addin" />
       </Component>
     </Feature>
 
     <Feature Id="Cleanup" Title="Remove developer copies" Level="1" Display="hidden">
-      <Component Id="CleanUserAddins" Directory="UAddins" Guid="D6E903C2-645F-4789-AC62-602E0650F3CA">
-        <RemoveFile Id="RmDev2024" Directory="U2024" Name="BeGenSt.addin" On="install" />
-        <RemoveFile Id="RmDev2025" Directory="U2025" Name="BeGenSt.addin" On="install" />
-        <RemoveFile Id="RmDev2026" Directory="U2026" Name="BeGenSt.addin" On="install" />
-        <RemoveFile Id="RmDev2027" Directory="U2027" Name="BeGenSt.addin" On="install" />
+      <Component Id="CleanUserAddins" Directory="UAddins" Guid="7F2B1C64-3A5E-4D18-9C07-5E8A2B6D41F3">
+        <RemoveFile Id="RmPrev2024" Directory="U2024" Name="BeGenSt.addin" On="install" />
+        <RemoveFile Id="RmPrev2025" Directory="U2025" Name="BeGenSt.addin" On="install" />
+        <RemoveFile Id="RmPrev2026" Directory="U2026" Name="BeGenSt.addin" On="install" />
+        <RemoveFile Id="RmPrev2027" Directory="U2027" Name="BeGenSt.addin" On="install" />
+        <RemoveFile Id="RmDev2024" Directory="U2024" Name="CoRFAGen.addin" On="install" />
+        <RemoveFile Id="RmDev2025" Directory="U2025" Name="CoRFAGen.addin" On="install" />
+        <RemoveFile Id="RmDev2026" Directory="U2026" Name="CoRFAGen.addin" On="install" />
+        <RemoveFile Id="RmDev2027" Directory="U2027" Name="CoRFAGen.addin" On="install" />
         <RemoveFile Id="RmOld2024" Directory="U2024" Name="ArchSmarterFamFab.addin" On="install" />
         <RemoveFile Id="RmOld2025" Directory="U2025" Name="ArchSmarterFamFab.addin" On="install" />
-        <RegistryValue Root="HKCU" Key="Software\BeGenSt\RFAGen" Name="CleanedDevCopies" Type="integer" Value="1" KeyPath="yes" />
+        <RegistryValue Root="HKCU" Key="Software\CoRFAGen" Name="CleanedDevCopies" Type="integer" Value="1" KeyPath="yes" />
       </Component>
     </Feature>
 

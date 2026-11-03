@@ -1,20 +1,20 @@
-# BeGenSt · PDF&Pic2RFA · RFAGen
+# CoRFAGen: плагин для Autodesk® Revit®
 
 *Русский · [English version below](#english-version)*
 
-Надстройка Revit: семейство RFA из PDF-чертежа, фото и эскиза с помощью ИИ (Anthropic Claude, Google Gemini или Alibaba Qwen).
+CoRFAGen (прежнее название BeGenSt PDF&Pic2RFA) — плагин для Autodesk Revit 2024–2027: семейство RFA из PDF-чертежа, фото и эскиза с помощью ИИ (Anthropic Claude, Google Gemini или Alibaba Qwen).
 Основана на открытом проекте ArchSmarter FamFab (MIT, см. LICENSE) и существенно переработана.
 
 ## Интерфейс в Revit
 
-Вкладка **BeGenSt** → панель **PDF&Pic2RFA**:
+Вкладка **CoRFAGen** → панель **Family Generator**:
 
 * **Purge** (первая кнопка) — очистка семейства, см. ниже.
 * **Generate** — выбор исходных файлов, анализ, генерация, проверка, 3D-предпросмотр.
 * **TypeGen** — семейство с несколькими типоразмерами по таблице каталога (см. ниже).
 * **Settings** — провайдер ИИ (Claude / Gemini / Qwen), API-ключи, модель.
 
-В окне предпросмотра кнопка **RFAGen** создаёт семейство в редакторе семейств, **Refine** — уточняет модель текстом.
+В окне предпросмотра кнопка **CoRFAGen** создаёт семейство в редакторе семейств, **Refine** — уточняет модель текстом.
 
 ## Исходные данные
 
@@ -70,7 +70,7 @@ API Qwen не принимает PDF, поэтому надстройка **ра
    имена типов по шаблону `{Префикс} {Обозначение} DN{DN} PN{PN}` → «КЗРр 25с947нж DN50 PN16».
 4. **2 · Generate model** — ИИ строит ОДИН параметрический шаблон (размеры — выражения от D1, D2, D3, L, n, d, H, DN),
    плагин проверяет каждый тип (длина = L, высота = H); **3D preview** — любой тип.
-5. **RFAGen** — создаёт семейство: тип на каждую строку, параметры типа из таблицы, «Описание» по типу,
+5. **CoRFAGen** — создаёт семейство: тип на каждую строку, параметры типа из таблицы, «Описание» по типу,
    геометрия наборами с видимостью (одинаковые размеры — общий набор), отверстия фланцев массивом по n,
    привод скрывается галочкой экземпляра **«Показать_привод»**. После создания — автоматический Purge и
    предложение сохранить со сжатием.
@@ -131,21 +131,21 @@ API Qwen не принимает PDF, поэтому надстройка **ра
    сверяет модель с исходными файлами и при необходимости исправляет её. Итог виден в предпросмотре в блоке
    «Check against source data».
 
-Все промежуточные результаты сохраняются в `%AppData%\BeGenSt\RFAGen\Logs`: `source-analysis.json`,
+Все промежуточные результаты сохраняются в `%AppData%\CoRFAGen\Logs`: `source-analysis.json`,
 `user-decisions.txt`, `generated-before-check.json`, `verification.json`, `check-report.txt`,
 `…-final.json`, `…-generation-report.txt`.
 
-Настройки: `%AppData%\BeGenSt\RFAGen\RFAGen.json` (при первом запуске ключи переносятся из старого FamFab).
+Настройки: `%AppData%\CoRFAGen\CoRFAGen.json` (при первом запуске ключи переносятся из старого FamFab).
 
 ## Сборка
 
 1. **Закройте Revit.**
-2. Откройте `C:\Portable\AI\BeGenSt\BeGenSt.slnx` в Visual Studio, конфигурация **Debug R24** (Revit 2024).
-3. **Сборка → Пересобрать решение.** Post-build копирует `BeGenSt.addin` и DLL в
+2. Откройте `CoRFAGen.slnx` из корня репозитория в Visual Studio, конфигурация **Debug R24** (Revit 2024).
+3. **Сборка → Пересобрать решение.** Post-build копирует `CoRFAGen.addin` и DLL в
    `%AppData%\Autodesk\Revit\Addins\2024\` и **удаляет манифест старой надстройки** `ArchSmarterFamFab.addin`,
-   чтобы не было двух вкладок. Предупреждение BEGENST01/02 в списке ошибок означает, что Revit был открыт и
+   чтобы не было двух вкладок. Предупреждение CORFAGEN01/02 в списке ошибок означает, что Revit был открыт и
    файлы не скопировались.
-4. Запустите Revit, подтвердите загрузку надстройки BeGenSt.
+4. Запустите Revit, подтвердите загрузку надстройки CoRFAGen.
 
 Поддерживаются Revit 2022–2027 (R22–R24: .NET Framework 4.8; R25–R27: .NET 8/10).
 
@@ -155,23 +155,25 @@ API Qwen не принимает PDF, поэтому надстройка **ра
   фланец входа на 800 мм от оси, спиральный вход, конус как тело вращения). Открывается через **Load JSON…**.
 * `TestDrawings\Table_1200x600x750_GOST.pdf` — тестовый чертёж стола (3 вида, М1:10).
 
+Autodesk и Revit являются зарегистрированными товарными знаками или товарными знаками компании Autodesk, Inc., и/или её дочерних и аффилированных компаний в США и/или других странах. CoRFAGen — независимый продукт, не связанный с компанией Autodesk, Inc. и не одобренный ею.
+
 ---
 
 ## English version
 
-Revit add-in: an RFA family from a PDF drawing, a photo and a sketch using AI (Anthropic Claude, Google Gemini or Alibaba Qwen).
+CoRFAGen (formerly BeGenSt PDF&Pic2RFA) is a plug-in for Autodesk Revit 2024–2027: an RFA family from a PDF drawing, a photo and a sketch using AI (Anthropic Claude, Google Gemini or Alibaba Qwen).
 Based on the open-source ArchSmarter FamFab project (MIT, see LICENSE) and substantially reworked.
 
 ### User interface in Revit
 
-Tab **BeGenSt** → panel **PDF&Pic2RFA**:
+Tab **CoRFAGen** → panel **Family Generator**:
 
 * **Purge** (first button) — family cleanup, see below.
 * **Generate** — choose source files, analysis, generation, verification, 3D preview.
 * **TypeGen** — a family with many types from a catalog table (see below).
 * **Settings** — AI provider (Claude / Gemini / Qwen), API keys, model.
 
-In the preview window the **RFAGen** button creates the family in the Family Editor, **Refine** edits the model by text.
+In the preview window the **CoRFAGen** button creates the family in the Family Editor, **Refine** edits the model by text.
 
 ### Source data
 
@@ -228,7 +230,7 @@ For catalog sheets with a type table (example — Avangard KZRr/KRr valves, DN15
    material; type names follow the pattern `{Prefix} {Designation} DN{DN} PN{PN}` → "КЗРр 25с947нж DN50 PN16".
 4. **2 · Generate model** — the AI builds ONE parametric template (dimensions are expressions of D1, D2, D3, L, n, d, H, DN);
    the add-in checks every type (length = L, height = H); **3D preview** — any type.
-5. **RFAGen** — creates the family: one type per row, type parameters from the table, "Description" per type,
+5. **CoRFAGen** — creates the family: one type per row, type parameters from the table, "Description" per type,
    geometry in sets with visibility (equal sizes share a set), flange holes as an array of n,
    the actuator is hidden by the instance checkbox **"Показать_привод"** (Show actuator). After creation — automatic
    Purge and an offer to save compacted.
@@ -290,21 +292,21 @@ folder (`…-purge.txt`).
    structural errors; then the AI checks the model against the source files and fixes it if needed. The result is shown
    in the preview in the "Check against source data" block.
 
-All intermediate results are saved to `%AppData%\BeGenSt\RFAGen\Logs`: `source-analysis.json`,
+All intermediate results are saved to `%AppData%\CoRFAGen\Logs`: `source-analysis.json`,
 `user-decisions.txt`, `generated-before-check.json`, `verification.json`, `check-report.txt`,
 `…-final.json`, `…-generation-report.txt`.
 
-Settings: `%AppData%\BeGenSt\RFAGen\RFAGen.json` (on first run the keys are migrated from the old FamFab).
+Settings: `%AppData%\CoRFAGen\CoRFAGen.json` (on first run the keys are migrated from the old FamFab).
 
 ### Build
 
 1. **Close Revit.**
-2. Open `C:\Portable\AI\BeGenSt\BeGenSt.slnx` in Visual Studio, configuration **Debug R24** (Revit 2024).
-3. **Build → Rebuild Solution.** The post-build step copies `BeGenSt.addin` and the DLLs to
+2. Open `CoRFAGen.slnx` from the repository root in Visual Studio, configuration **Debug R24** (Revit 2024).
+3. **Build → Rebuild Solution.** The post-build step copies `CoRFAGen.addin` and the DLLs to
    `%AppData%\Autodesk\Revit\Addins\2024\` and **deletes the manifest of the old add-in** `ArchSmarterFamFab.addin`,
-   so that there are no two tabs. Warning BEGENST01/02 in the Error List means Revit was open and the files were
+   so that there are no two tabs. Warning CORFAGEN01/02 in the Error List means Revit was open and the files were
    not copied.
-4. Start Revit and confirm loading of the BeGenSt add-in.
+4. Start Revit and confirm loading of the CoRFAGen add-in.
 
 Revit 2022–2027 are supported (R22–R24: .NET Framework 4.8; R25–R27: .NET 8/10).
 
@@ -313,3 +315,5 @@ Revit 2022–2027 are supported (R22–R24: .NET Framework 4.8; R25–R27: .NET 
 * `TestDrawings\Cyclone_reference.json` — reference cyclone (cylinder height 770 = 340 + 430, branch pipe 90,
   inlet flange 800 mm from the axis, spiral inlet, cone as a revolution). Open it with **Load JSON…**.
 * `TestDrawings\Table_1200x600x750_GOST.pdf` — test drawing of a table (3 views, scale 1:10).
+
+Autodesk and Revit are registered trademarks or trademarks of Autodesk, Inc., and/or its subsidiaries and/or affiliates in the USA and/or other countries. CoRFAGen is an independent product and is not affiliated with, endorsed or sponsored by Autodesk, Inc.

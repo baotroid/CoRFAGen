@@ -364,7 +364,7 @@ FodyWeavers.xsd
 
 # Claude Code
 .claude/
-# ---- BeGenSt ----
+# ---- CoRFAGen ----
 # installers and build logs are published as GitHub Releases, not committed
 Setup/
 Installer/bin/
