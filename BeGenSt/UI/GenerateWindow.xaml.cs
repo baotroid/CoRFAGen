@@ -85,7 +85,7 @@ namespace BeGenSt.UI
         {
             var dlg = new OpenFileDialog
             {
-                Title = $"Select up to {MaxFiles} files of the same object (PDF drawing, JPG photo, PNG sketch)",
+                Title = $"Select up to {MaxFiles} files of the same object (DWG/DXF or PDF drawing, JPG photo, PNG sketch)",
                 Filter = InputAttachment.OpenFileFilter,
                 Multiselect = true
             };
@@ -102,7 +102,7 @@ namespace BeGenSt.UI
 
             if (skipped.Count > 0)
                 System.Windows.MessageBox.Show("Not added:\n" + string.Join("\n", skipped) +
-                    $"\n\nOne family can be generated from at most {MaxFiles} files: PDF, JPG/JPEG, PNG (WEBP).",
+                    $"\n\nOne family can be generated from at most {MaxFiles} files: DWG, DXF, PDF, JPG/JPEG, PNG (WEBP).",
                     "RFAGen", MessageBoxButton.OK, MessageBoxImage.Information);
 
             RefreshFiles();
@@ -133,7 +133,7 @@ namespace BeGenSt.UI
             ImagePreview.Source = null;
             ImagePreview.Visibility = System.Windows.Visibility.Collapsed;
 
-            string firstImage = files.FirstOrDefault(f => !f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase));
+            string firstImage = files.FirstOrDefault(f => !f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) && !CadDrawingReader.IsCadFile(f));
             if (firstImage != null)
             {
                 try
@@ -153,7 +153,8 @@ namespace BeGenSt.UI
 
             TxtFileList.Text = string.Join("\n", files.Select((f, i) =>
             {
-                string role = f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) ? "PDF drawing / data"
+                string role = CadDrawingReader.IsCadFile(f) ? "CAD drawing"
+                    : f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) ? "PDF drawing / data"
                     : f.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ? "sketch / image" : "photo";
                 long size = new FileInfo(f).Length;
                 return $"{i + 1}. {Path.GetFileName(f)}  —  {role}, {size / 1024.0:F0} KB";

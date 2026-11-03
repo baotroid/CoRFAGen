@@ -161,6 +161,14 @@ Do not ask about things the image clearly shows. If you can see four legs, do no
 
 ---
 
+## DWG / DXF sources
+
+A CAD file arrives as an image of its sheet plus a block "EXACT DATA READ FROM THE CAD FILE". Take every number from that block and
+use the image to understand shapes and views. The displayed label is the design value, even if the "drawn" length differs. A region
+marked "drawn at its own scale" is a detail or schematic view, not a conflict. Labels under "label differs from the drawn length":
+trust the view where the same size matches its geometry, and report a conflict only when the views really disagree. Sizes without a
+dimension come from the listed circles and lines (differences of coordinates), not from the picture, if the region is to scale.
+
 ## Orthographic Drawing Flow
 
 Use this flow when the input is a 2D technical drawing (PDF or image) with at least two orthographic

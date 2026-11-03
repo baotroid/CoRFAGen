@@ -114,6 +114,7 @@ namespace BeGenSt
                     string baseName = string.IsNullOrEmpty(slug) ? $"{timestamp}{suffix}" : $"{timestamp}-{slug}{suffix}";
                     string path = Path.Combine(folder, baseName + ext);
                     File.WriteAllBytes(path, att.Bytes);
+                    if (att.IsCad) File.WriteAllText(Path.Combine(folder, baseName + "-cad-data.txt"), att.ExtractedText);
                     if (firstPath == null) firstPath = path;
                 }
             }

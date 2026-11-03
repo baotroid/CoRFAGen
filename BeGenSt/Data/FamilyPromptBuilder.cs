@@ -22,7 +22,7 @@ namespace BeGenSt.Data
 
         public static bool ContainsDrawings(IList<InputAttachment> attachments)
         {
-            return attachments != null && attachments.Any(a => a.IsPdf);
+            return attachments != null && attachments.Any(a => a.IsPdf || a.IsCad);
         }
 
         // ------------------------------------------------------------------ file roles
@@ -34,14 +34,20 @@ namespace BeGenSt.Data
             sb.AppendLine($"{attachments.Count} source file(s) of ONE object are attached, in this order:");
             for (int i = 0; i < attachments.Count; i++)
                 sb.AppendLine($"- File {i + 1}: \"{attachments[i].FileName}\" — {RoleOf(attachments[i])}");
-            sb.AppendLine("Priority when sources disagree: dimensions written on the PDF drawing > dimensions written on the sketch > " +
+            sb.AppendLine("Priority when sources disagree: dimensions written on the DWG/DXF or PDF drawing > dimensions written on the sketch > " +
                           "proportions of the drawing > sketch > photo. The photo defines appearance, details and details hidden in the drawing. " +
                           "If a file obviously has a different role than assumed (e.g. the PNG is a photo), treat it by its real content.");
+            foreach (InputAttachment cad in attachments.Where(a => a.IsCad))
+            {
+                sb.AppendLine();
+                sb.AppendLine(cad.ExtractedText);
+            }
             return sb.ToString();
         }
 
         public static string RoleOf(InputAttachment a)
         {
+            if (a.IsCad) return "DWG/DXF: 2D CAD drawing; the attached image is its rendered sheet and its exact dimensions, texts and coordinates are listed below";
             if (a.IsPdf) return "PDF: 2D technical drawing / datasheet (vector or scanned): orthographic views, dimensions, title block, technical data";
             if (a.MimeType == "image/png") return "PNG: usually a hand-drawn sketch (shape intent; dimensions written on it are valid)";
             return "JPG/JPEG: usually a photo of the real object (appearance, proportions, visible details)";

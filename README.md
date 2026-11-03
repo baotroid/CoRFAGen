@@ -1,6 +1,6 @@
 # BeGenSt · PDF&Pic2RFA · RFAGen
 
-Revit add-in (Revit 2024–2027) that builds a Revit family from a 2D PDF drawing, a photo and/or a sketch
+Revit add-in (Revit 2024–2027) that builds a Revit family from a 2D DWG/DXF or PDF drawing, a photo and/or a sketch
 with AI (Anthropic Claude, Google Gemini, Alibaba Qwen / OpenRouter), checks the model against the sources,
 shows a 3D preview and writes the family. **TypeGen** builds a family with many types from a catalog table
 (e.g. valves DN15–300 × PN16–40: types, lookup table, pipe connectors, actuator toggle). Includes **Purge**

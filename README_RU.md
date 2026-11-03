@@ -18,8 +18,20 @@
 
 ## Исходные данные
 
-До **3 файлов одного объекта**: PDF (векторный/сканированный чертёж с ≥ 2 видами, техданные), JPG/JPEG (фото),
-PNG (эскиз от руки). Приоритет при расхождениях: размеры на PDF > размеры на эскизе > пропорции чертежа > эскиз > фото.
+До **3 файлов одного объекта**: DWG/DXF или PDF (векторный/сканированный чертёж с ≥ 2 видами, техданные), JPG/JPEG (фото),
+PNG (эскиз от руки). Приоритет при расхождениях: размеры на DWG/DXF и PDF > размеры на эскизе > пропорции чертежа > эскиз > фото.
+
+## DWG и DXF
+
+Чертёж читается внутри плагина библиотекой ACadSharp (MIT), AutoCAD и преобразование DWG в DXF не нужны. Ни одному провайдеру
+файл DWG не передаётся: модель получает изображение листа и точные данные текстом, так что это работает с Claude, Gemini и Qwen.
+
+* Находится лист (рамка), объекты вне него отбрасываются; блоки разворачиваются; тексты декодируются (в том числе `\U+XXXX`).
+* Для каждого размера передаются подпись и длина по геометрии. Подпись считается проектным значением, виды в своём масштабе
+  определяются автоматически, а расхождения внутри вида отмечаются для проверки исходных данных.
+* Данные для модели сохраняются в папке Logs (`…-cad-data.txt`).
+* Читается только 2D. 3D-тела из DWG и внешние ссылки не читаются, нестандартные объекты других программ могут быть пропущены
+  (их число указывается для модели).
 
 ## Qwen (Alibaba Cloud Model Studio)
 
@@ -163,9 +175,21 @@ In the preview window the **RFAGen** button creates the family in the Family Edi
 
 ### Source data
 
-Up to **3 files of one object**: PDF (vector or scanned drawing with ≥ 2 views, technical data), JPG/JPEG (photo),
-PNG (hand sketch). Priority when sources disagree: dimensions on the PDF > dimensions on the sketch > drawing
+Up to **3 files of one object**: DWG/DXF or PDF (vector or scanned drawing with ≥ 2 views, technical data), JPG/JPEG (photo),
+PNG (hand sketch). Priority when sources disagree: dimensions on the DWG/DXF or PDF > dimensions on the sketch > drawing
 proportions > sketch > photo.
+
+### DWG and DXF
+
+The drawing is read inside the add-in with the ACadSharp library (MIT); neither AutoCAD nor a DWG to DXF conversion is needed. No provider
+receives the DWG itself: the model gets an image of the sheet and exact data as text, so this works with Claude, Gemini and Qwen.
+
+* The sheet (frame) is found and objects outside it are dropped; blocks are expanded; texts are decoded (including `\U+XXXX`).
+* Each dimension is passed with its label and its drawn length. The label counts as the design value, views at their own scale are
+  detected automatically, and differences within a view are flagged for the source data check.
+* The data sent to the model is saved in the Logs folder (`…-cad-data.txt`).
+* 2D only. 3D solids in a DWG and external references are not read; custom objects of other programs may be skipped
+  (their number is reported to the model).
 
 ### Qwen (Alibaba Cloud Model Studio)
 

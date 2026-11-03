@@ -30,6 +30,7 @@ BeGenSt/BeGenSt.csproj       multi-target add-in project
     QwenClient.cs            OpenAI-compatible chat/completions: Alibaba Model Studio (Qwen) or OpenRouter
                              (model ids containing "/" go to OpenRouter with the OpenRouter key)
     PdfRasterizer.cs         PDF → PNG pages (+ text layer) via Docnet.Core/pdfium for providers without PDF input
+    CadDrawingReader.cs      DWG/DXF (ACadSharp) → sheet PNG + exact data text: sheet frame, blocks, labels vs drawn length, view scales
     FamilyAiService.cs       Analyze / Generate / Verify / Refine / SendTextAsync facade
     FamilyPromptBuilder.cs   prompts; GenerationPipeline.cs (analyse → conflicts → generate → verify)
     SourceAnalysis.cs, GeometryInspector.cs   conflict model, JSON-only geometry check
@@ -92,6 +93,11 @@ docs/                        HISTORY_RU.md (development history & decisions), mo
 * Expression substitution is by whole identifier (short names n, d, L, H) — keep it that way.
 * JSON schema `0.1`: parameters may carry `"target": "existing" | "shared" | "new"`; expressions reference
   parameter names with spaces → underscores.
+* DWG/DXF: an InputAttachment with `ExtractedText`; Bytes = rendered PNG, so clients treat it as an image; the text goes in through
+  `FamilyPromptBuilder.DescribeFiles`. The drawn block of a dimension nested in a block has its own offset (align it by the label).
+  A copy of the reader is kept in `skills/rfagen-json-from-drawing/dwg_extract` (copied on build; do not edit the copy).
+* Client drawings stay local: `TestDrawings/*.dwg|*.dxf`, their PDFs and `*_from_DWG*` are git-ignored. Do not commit them.
+* Test generation on a new family document only: the Revit session usually has a live project open (see the skill, section 5).
 * Never log or echo API keys; keys live only in the user's RFAGen.json. `LlmHttp.SanitizeKey` strips invisible chars.
 
 ## Workflow / sync rules

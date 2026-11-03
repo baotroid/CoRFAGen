@@ -373,3 +373,8 @@ Installer/obj/
 ~$*
 # one-off task files for Claude Code (kept locally, not published)
 docs/HANDOFF*.md
+# client drawings stay local (DWG/DXF sources, their PDF exports and derived test output)
+TestDrawings/*.dwg
+TestDrawings/*.dxf
+TestDrawings/NQ0800*.pdf
+TestDrawings/*_from_DWG*

@@ -1,6 +1,6 @@
 ---
 name: "rfagen-json-from-drawing"
-description: "Build a BeGenSt/RFAGen Revit family JSON (or a TypeGen catalog JSON with many types) from a PDF drawing, photo or sketch: analyse, ask about conflicts, check sizes, render a preview. No API key needed."
+description: "Build a BeGenSt/RFAGen Revit family JSON (or a TypeGen catalog JSON with many types) from a DWG/DXF or PDF drawing, photo or sketch: analyse, ask about conflicts, check sizes, render a preview. No API key needed."
 ---
 
 # RFAGen family JSON from drawings (no API key)
@@ -12,8 +12,8 @@ Talk to the user in their language (usually Russian). Never skip the conflict di
 
 ## 0. Inputs
 
-Up to 3 files of ONE object: PDF (vector/scanned drawing with ≥ 2 views, title block, technical data),
-JPG/JPEG (photo), PNG (hand sketch). Priority when they disagree: dimensions written on the PDF >
+Up to 3 files of ONE object: DWG/DXF or PDF (drawing with ≥ 2 views, title block, technical data),
+JPG/JPEG (photo), PNG (hand sketch). Priority when they disagree: dimensions written on the DWG/DXF or PDF >
 dimensions written on the sketch > drawn proportions > sketch > photo (photo = appearance/details).
 
 Read every PDF page both ways:
@@ -23,6 +23,30 @@ pdftotext -layout drawing.pdf - 2>/dev/null  # dimension texts, title block, spe
 ```
 Zoom into crowded areas (crop with PIL) before reading small dimension text. Measure undimensioned features
 by pixel ratio against a known dimension in the same view (note: drawings are often not to scale).
+
+### DWG / DXF
+
+Run the reader next to this skill (needs the .NET 8 SDK; no AutoCAD, no conversion to DXF):
+```bash
+dotnet run --project dwg_extract -- "drawing.dwg" "output folder"
+```
+It writes `<name>-sheet.png` (the sheet: geometry black, dimensions red, texts blue), `<name>-data.txt` (exact data)
+and `<name>-lines.csv` (`kind,layer,x1,y1,x2,y2`, every drawn line, curves as short segments). No .NET: ask the user
+for a PDF of the sheet and use the PDF flow. Then:
+- Look at the PNG first to understand the views, and zoom into crops. Take numbers only from `-data.txt` and the CSV,
+  never from the picture: reading a small label from an image is where errors come from.
+- **The displayed label is the design value.** Each dimension has its label and the `drawn` length measured from its points.
+  A region (usually one view) marked "drawn at its own scale" is a detail at another scale, not a conflict.
+- Labels under "label differs from the drawn length" differ from the rest of their region. Compare them with the other
+  views: the same size that matches its geometry in another view is the one to trust; otherwise it is a conflict to ask about.
+- The same feature labelled differently in two views (e.g. flange φ565 in the section, φ535 in the view from above) is a conflict.
+- **Undimensioned sizes come from the CSV**, with a real accuracy: choose an axis and a base, subtract them and list the
+  horizontal and vertical lines of an area (wall thickness, flange thickness, pipe OD, bolt circles of the side flanges).
+  Mark such values as "from the geometry lines" in the parameter description, and check that the view is to scale first.
+- "Custom objects that could not be read" in the header means some dimensions or symbols may be missing:
+  do not treat a missing value as absent from the drawing, say so in the report.
+- 2D only: 3D solids in a DWG are not read. The other things to expect are handled by the reader: objects outside
+  the sheet frame are dropped (often hundreds of stray dimensions), blocks are expanded, `\U+XXXX` texts are decoded.
 
 ## 1. Source analysis
 
@@ -148,6 +172,25 @@ the inlet, nothing floating/overlapping, chain dimensions reproduced (read eleme
 Fix the JSON and rerun until RESULT: PASS and the views match. Optionally also validate against the add-in's
 schema (`C:\Portable\AI\BeGenSt\BeGenSt\EmbeddedContent\family-schema.json`) with `jsonschema` if available
 (`metadata.name` and `verification` are allowed by the BeGenSt schema).
+Geometric parameter names must be Latin; a Cyrillic value with units goes in as `text` ("φ6 мм"). `--expect` is the size of the
+solids: a part wider than the dimensioned feet or flanges sets it (look at what really is the widest).
+
+**Check in Revit, when the `revit-mcp` tools are connected** (`send_code_to_revit`, `transactionMode: "none"`): run the add-in's own
+generator on a NEW family document. Never generate into, save or modify the document the user has open; it is often a live project.
+Record `document.IsModified` before and after and report it.
+```csharp
+var asm = AppDomain.CurrentDomain.GetAssemblies().First(a => a.GetName().Name == "BeGenSt");
+var t = asm.GetType("BeGenSt.Data.FamilyGenerator");
+var run = t.GetMethods().First(x => x.Name == "Execute" && x.GetParameters().Length == 3);
+var app = document.Application;
+Document fam = app.NewFamilyDocument(@"C:\ProgramData\Autodesk\RVT 2024\Family Templates\English\Metric Generic Model.rft");
+try {
+    object r = run.Invoke(Activator.CreateInstance(t), new object[] { fam, app, System.IO.File.ReadAllText(jsonPath) });
+    // read Success, GeometryCount, ExpectedGeometryCount, ErrorCount, Errors from r; the bounding box of every
+    // GenericForm with IsSolid against the expected overall size; ExportImage of a View3D; then fam.SaveAs(testPath)
+} finally { fam.Close(false); }
+```
+Adjust the year in the template path to the running Revit. PASS = all elements built, 0 errors, overall size as expected, the image looks like the drawing.
 
 ## 6. Deliver
 

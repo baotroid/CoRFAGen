@@ -109,6 +109,7 @@
   	<PackageReference Include="Microsoft.Web.WebView2" Version="1.0.2903.40" />
   	<!-- PDF -> PNG rendering (pdfium) for providers without PDF input (DeepSeek) -->
   	<PackageReference Include="Docnet.Core" Version="2.6.0" GeneratePathProperty="true" />
+  	<PackageReference Include="ACadSharp" Version="3.8.35" />
 </ItemGroup>
 
 <!-- Put pdfium.dll (x64) right next to BeGenSt.dll for every target framework; PdfRasterizer preloads it from there. -->
@@ -187,4 +188,8 @@ exit 0
 	</None>
 </ItemGroup>
   
+  <!-- the skill tool skills/rfagen-json-from-drawing/dwg_extract builds without this project: it keeps a copy of the reader -->
+  <Target Name="SyncSkillCadReader" BeforeTargets="BeforeBuild">
+    <Copy SourceFiles="Data\CadDrawingReader.cs" DestinationFolder="..\skills\rfagen-json-from-drawing\dwg_extract" SkipUnchangedFiles="true" />
+  </Target>
 </Project>

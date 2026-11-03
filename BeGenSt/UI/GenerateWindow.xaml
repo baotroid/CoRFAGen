@@ -86,11 +86,11 @@
                 </Grid.RowDefinitions>
 
                 <TextBlock Grid.Row="0" TextWrapping="Wrap" FontSize="13" Foreground="{StaticResource TextSecondaryBrush}"
-                           Text="Select up to 3 source files of ONE object: a PDF drawing (2+ views, technical data), a JPG photo and/or a PNG hand sketch."/>
+                           Text="Select up to 3 source files of ONE object: a DWG/DXF or PDF drawing (2+ views, technical data), a JPG photo and/or a PNG hand sketch."/>
 
                 <!-- Files -->
                 <StackPanel Grid.Row="2">
-                    <TextBlock Text="Source files (max 3: PDF / JPG / PNG)" Margin="0,0,0,6" FontWeight="SemiBold"/>
+                    <TextBlock Text="Source files (max 3: DWG / DXF / PDF / JPG / PNG)" Margin="0,0,0,6" FontWeight="SemiBold"/>
                     <Grid>
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="*"/>

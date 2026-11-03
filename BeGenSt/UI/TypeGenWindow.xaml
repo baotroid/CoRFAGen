@@ -95,7 +95,7 @@
                         <ColumnDefinition Width="220"/>
                     </Grid.ColumnDefinitions>
                     <StackPanel>
-                        <TextBlock Text="Catalog sheet(s): PDF with the type table + drawing (max 3 files)" Margin="0,0,0,6" FontWeight="SemiBold"/>
+                        <TextBlock Text="Catalog sheet(s): PDF or DWG/DXF with the type table + drawing (max 3 files)" Margin="0,0,0,6" FontWeight="SemiBold"/>
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*"/>
