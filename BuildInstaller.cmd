@@ -7,7 +7,7 @@ rem  Just double-click this file. Log: Setup\build.log
 rem ============================================================================
 setlocal
 cd /d "%~dp0"
-set "VER=1.4.4"
+set "VER=1.5.0"
 if not exist "Setup" mkdir "Setup"
 set "LOG=%~dp0Setup\build.log"
 echo BeGenSt MSI build %date% %time% > "%LOG%"

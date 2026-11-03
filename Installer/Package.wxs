@@ -14,7 +14,7 @@
            Language="1033"
            Compressed="yes">
 
-    <SummaryInformation Description="BeGenSt RFAGen: Revit families from PDF drawings, photos and sketches" />
+    <SummaryInformation Description="BeGenSt RFAGen: Revit families from DWG/DXF and PDF drawings, photos and sketches" />
     <MajorUpgrade DowngradeErrorMessage="A newer version of BeGenSt is already installed." />
     <MediaTemplate EmbedCab="yes" />
 

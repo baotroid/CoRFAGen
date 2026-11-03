@@ -6,7 +6,7 @@ The user writes in Russian — answer in Russian. UI strings of the add-in are i
 ## What it is
 
 A Revit add-in (tab **BeGenSt**, panel **PDF&Pic2RFA**) that builds a Revit family (RFA) from up to 3 source files
-of one object — a 2D PDF drawing (≥ 2 views, title block, technical data), a JPG photo and/or a PNG sketch — using an
+of one object — a 2D DWG/DXF or PDF drawing (≥ 2 views, title block, technical data), a JPG photo and/or a PNG sketch — using an
 AI model, checks the result and shows a 3D preview before writing geometry into the open family document.
 Derived from the open ArchSmarter **FamFab** add-in (MIT, see `LICENSE`), heavily reworked.
 
@@ -96,6 +96,8 @@ docs/                        HISTORY_RU.md (development history & decisions), mo
 * DWG/DXF: an InputAttachment with `ExtractedText`; Bytes = rendered PNG, so clients treat it as an image; the text goes in through
   `FamilyPromptBuilder.DescribeFiles`. The drawn block of a dimension nested in a block has its own offset (align it by the label).
   A copy of the reader is kept in `skills/rfagen-json-from-drawing/dwg_extract` (copied on build; do not edit the copy).
+* ACadSharp on net48 asks for System.Memory 4.0.5; `App.ResolveFromAddinFolder` returns whatever version is already loaded (pyRevit and others
+  load 4.0.1.x). Tested in the Revit 2024 process: it works. A clean net48 process does not reproduce this, so test such dependencies inside Revit.
 * Client drawings stay local: `TestDrawings/*.dwg|*.dxf`, their PDFs and `*_from_DWG*` are git-ignored. Do not commit them.
 * Test generation on a new family document only: the Revit session usually has a live project open (see the skill, section 5).
 * Never log or echo API keys; keys live only in the user's RFAGen.json. `LlmHttp.SanitizeKey` strips invisible chars.

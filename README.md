@@ -13,4 +13,4 @@ family / shared parameters (ФОП) in the family's language.
 * Claude skill (family JSON from drawings without an API key): [skills/rfagen-json-from-drawing](skills/rfagen-json-from-drawing/SKILL.md)
 * Installer: see **Releases** (`BeGenSt_PDFPic2RFA_<version>.msi`)
 
-Based on ArchSmarter FamFab (MIT, see [LICENSE](LICENSE)).
+Based on ArchSmarter FamFab (MIT, see [LICENSE](LICENSE)). DWG/DXF reading: [ACadSharp](https://github.com/DomCR/ACadSharp), MIT, Copyright (c) 2026 Albert Domenech.
