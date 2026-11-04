@@ -179,7 +179,7 @@ namespace CoRFAGen.Data
         public static string FormatSize(long bytes)
         {
             if (bytes <= 0) return "—";
-            return bytes >= 1024 * 1024 ? $"{bytes / 1024.0 / 1024.0:F1} MB" : $"{bytes / 1024.0:F0} KB";
+            return bytes >= 1024 * 1024 ? $"{bytes / 1024.0 / 1024.0:F1} {Loc.T("MB")}" : $"{bytes / 1024.0:F0} {Loc.T("KB")}";
         }
     }
 }

@@ -21,11 +21,38 @@ namespace CoRFAGen.UI
             _selectedProvider = _settingsManager.GetProvider();
             AvailableModels = new ObservableCollection<string>(_settingsManager.GetAvailableModels(_selectedProvider));
             _selectedModel = _settingsManager.GetModelName(_selectedProvider);
+            _selectedLanguage = _settingsManager.GetLanguage() == Loc.Russian ? LanguageRussian : LanguageEnglish;
 
             UpdateStatus();
         }
 
         public List<string> Providers { get; } = LlmProviders.All;
+
+        private const string LanguageEnglish = "English";
+        private const string LanguageRussian = "Русский";
+        public List<string> Languages { get; } = new List<string> { LanguageEnglish, LanguageRussian };
+
+        /// <summary>Raised after the interface language changes, so the open window can translate itself.</summary>
+        public event Action LanguageChanged;
+
+        private string _selectedLanguage;
+        public string SelectedLanguage
+        {
+            get => _selectedLanguage;
+            set
+            {
+                if (value == null || value == _selectedLanguage) return;
+                _selectedLanguage = value;
+                string language = value == LanguageRussian ? Loc.Russian : Loc.English;
+                _settingsManager.SetLanguage(language);
+                Loc.SetLanguage(language);
+                App.ApplyRibbonLanguage();
+                OnPropertyChanged();
+                OnPropertyChanged(nameof(ModelLabel));
+                UpdateStatus();
+                LanguageChanged?.Invoke();
+            }
+        }
 
         private string _selectedProvider;
         public string SelectedProvider
@@ -49,7 +76,7 @@ namespace CoRFAGen.UI
             }
         }
 
-        public string ModelLabel => $"Model ({LlmProviders.DisplayName(_selectedProvider)})";
+        public string ModelLabel => Loc.T($"Model ({LlmProviders.DisplayName(_selectedProvider)})");
 
         private string _claudeApiKey;
         public string ClaudeApiKey
@@ -154,8 +181,8 @@ namespace CoRFAGen.UI
                 : "";
 
             string openRouter = string.IsNullOrWhiteSpace(_openRouterApiKey) ? "not set" : "set";
-            StatusText = $"Claude key: {claude}.  Gemini key: {gemini}.  Qwen key: {qwen}.  OpenRouter key: {openRouter}.{active}\n" +
-                         $"Keys are stored locally in {CoRFAGenSettingsManager.GetSettingsFilePath()}";
+            StatusText = Loc.T($"Claude key: {claude}.  Gemini key: {gemini}.  Qwen key: {qwen}.  OpenRouter key: {openRouter}.{active}\n" +
+                         $"Keys are stored locally in {CoRFAGenSettingsManager.GetSettingsFilePath()}");
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

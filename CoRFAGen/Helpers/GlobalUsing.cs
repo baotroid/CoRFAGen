@@ -10,6 +10,7 @@ global using System.Reflection;
 global using System.Text.Json;
 global using System.Windows;
 global using Color = Autodesk.Revit.DB.Color;
+global using Loc = CoRFAGen.Data.Loc;
 global using TaskDialog = Autodesk.Revit.UI.TaskDialog;
 global using View = Autodesk.Revit.DB.View;
 global using Window = System.Windows.Window;

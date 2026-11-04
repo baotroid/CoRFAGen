@@ -36,6 +36,7 @@ namespace CoRFAGen.UI
         public TypeGenWindow(CoRFAGenSettingsManager settings, ParameterTargetContext familyCtx)
         {
             InitializeComponent();
+            Loc.Apply(this);
             _settings = settings;
             _familyCtx = familyCtx ?? new ParameterTargetContext();
             CmbProvider.ItemsSource = LlmProviders.All;
@@ -91,19 +92,19 @@ namespace CoRFAGen.UI
 
         private void BtnBrowse_Click(object sender, RoutedEventArgs e)
         {
-            var dlg = new OpenFileDialog { Filter = InputAttachment.OpenFileFilter, Multiselect = true, Title = "Catalog sheet(s)" };
+            var dlg = new OpenFileDialog { Filter = Loc.T(InputAttachment.OpenFileFilter), Multiselect = true, Title = Loc.T("Catalog sheet(s)") };
             if (dlg.ShowDialog() != true) return;
             foreach (string f in dlg.FileNames)
                 if (InputAttachment.IsSupported(f) && _files.Count < 3 && !_files.Contains(f, StringComparer.OrdinalIgnoreCase))
                     _files.Add(f);
-            TxtFiles.Text = _files.Count == 0 ? "No files selected" : string.Join("  ·  ", _files.Select(Path.GetFileName));
+            TxtFiles.Text = Loc.T(_files.Count == 0 ? "No files selected" : string.Join("  ·  ", _files.Select(Path.GetFileName)));
             UpdateButtons();
         }
 
         private void BtnClearFiles_Click(object sender, RoutedEventArgs e)
         {
             _files.Clear();
-            TxtFiles.Text = "No files selected";
+            TxtFiles.Text = Loc.T("No files selected");
             UpdateButtons();
         }
 
@@ -120,7 +121,7 @@ namespace CoRFAGen.UI
         private void SetBusy(bool busy, string status = null)
         {
             ProgressPanel.Visibility = busy ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            if (status != null) StatusLabel.Text = status;
+            if (status != null) StatusLabel.Text = Loc.T(status);
             foreach (System.Windows.Controls.Control c in new System.Windows.Controls.Control[]
                      { BtnExtract, BtnTemplate, BtnCreate, BtnLoad, BtnSave, BtnBrowse, BtnClearFiles, BtnPreview })
                 c.IsEnabled = !busy;
@@ -144,8 +145,8 @@ namespace CoRFAGen.UI
                               ?? throw new InvalidOperationException("The model did not return a JSON object.");
                 FillFromExtraction(_extraction);
                 _templateJson = null;
-                TxtCheck.Text = "Table read: " + (_table?.Rows.Count ?? 0) + " rows." + WarningsText(_extraction) +
-                                "\nCheck the values, choose the figure and press «2 · Generate model».";
+                TxtCheck.Text = Loc.T("Table read: " + (_table?.Rows.Count ?? 0) + " rows." + WarningsText(_extraction) +
+                                "\nCheck the values, choose the figure and press «2 · Generate model».");
             }
             catch (Exception ex)
             {
@@ -442,13 +443,13 @@ namespace CoRFAGen.UI
                     if (issues.Count == 0) ok++;
                     else { bad++; lines.Add($"⚠ {types[i].Name}: {string.Join("; ", issues)}"); }
                 }
-                TxtCheck.Text = $"Model check: {types.Count} types, {sets} geometry sets — OK {ok}, deviations {bad}." +
+                TxtCheck.Text = Loc.T($"Model check: {types.Count} types, {sets} geometry sets — OK {ok}, deviations {bad}." +
                                 (lines.Count > 0 ? "\n" + string.Join("\n", lines.Take(30)) : "") +
-                                $"\nFirst type: {(names.Count > 0 ? names[0] : "—")}";
+                                $"\nFirst type: {(names.Count > 0 ? names[0] : "—")}");
             }
             catch (Exception ex)
             {
-                TxtCheck.Text = "Model check failed: " + ex.Message;
+                TxtCheck.Text = Loc.T("Model check failed: " + ex.Message);
             }
             int sel = CmbPreviewType.SelectedIndex;
             CmbPreviewType.ItemsSource = names;
@@ -484,8 +485,8 @@ namespace CoRFAGen.UI
             string logs = CoRFAGenSettingsManager.GetLogsFolderPath();
             var dlg = new OpenFileDialog
             {
-                Filter = "Catalog JSON|*.json|All files|*.*",
-                Title = "Load catalog JSON (template + types)",
+                Filter = Loc.T("Catalog JSON|*.json|All files|*.*"),
+                Title = Loc.T("Load catalog JSON (template + types)"),
                 InitialDirectory = Directory.Exists(logs) ? logs : null
             };
             if (dlg.ShowDialog() != true) return;
@@ -539,7 +540,7 @@ namespace CoRFAGen.UI
             if (json == null) return;
             var dlg = new SaveFileDialog
             {
-                Filter = "Catalog JSON|*.json",
+                Filter = Loc.T("Catalog JSON|*.json"),
                 FileName = MakeFileName((TxtPrefix.Text + " " + CmbFigure.Text).Trim()) + "_catalog.json"
             };
             if (dlg.ShowDialog() != true) return;
@@ -551,7 +552,7 @@ namespace CoRFAGen.UI
             string json = BuildCatalogJson();
             if (json == null) return;
             int n = SelectedRows().Count;
-            if (n > 120 && System.Windows.MessageBox.Show($"{n} types will be created. Continue?", "TypeGen",
+            if (n > 120 && Loc.Show($"{n} types will be created. Continue?", "TypeGen",
                     MessageBoxButton.YesNo, MessageBoxImage.Question) != MessageBoxResult.Yes) return;
             CatalogJsonResult = json;
             DialogResult = true;
@@ -560,7 +561,7 @@ namespace CoRFAGen.UI
         // ------------------------------------------------------------------ helpers
 
         private void Warn(string msg) =>
-            System.Windows.MessageBox.Show(msg, "CoRFAGen · TypeGen", MessageBoxButton.OK, MessageBoxImage.Warning);
+            Loc.Show(msg, "CoRFAGen · TypeGen", MessageBoxButton.OK, MessageBoxImage.Warning);
 
         private static string Str(JsonNode n)
         {

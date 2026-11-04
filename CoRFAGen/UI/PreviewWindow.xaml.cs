@@ -24,6 +24,7 @@ namespace CoRFAGen.UI
             string sourceImagePath = null, string familyName = null, string verificationSummary = null)
         {
             InitializeComponent();
+            Loc.Apply(this);
             _currentFamilyJson = familyJson;
             _provider = LlmProviders.Normalize(provider);
             _apiKey = apiKey;
@@ -31,7 +32,7 @@ namespace CoRFAGen.UI
             _attachments = attachments ?? new List<InputAttachment>();
             _sourceImagePath = sourceImagePath;
             TxtFamilyName.Text = familyName ?? "";
-            TxtVerification.Text = string.IsNullOrWhiteSpace(verificationSummary) ? "Not verified." : verificationSummary;
+            TxtVerification.Text = Loc.T(string.IsNullOrWhiteSpace(verificationSummary) ? "Not verified." : verificationSummary);
             Loaded += PreviewWindow_Loaded;
         }
 
@@ -57,7 +58,7 @@ namespace CoRFAGen.UI
 
         private async void PreviewWindow_Loaded(object sender, RoutedEventArgs e)
         {
-            StatusText.Text = "Initializing 3D viewer...";
+            StatusText.Text = Loc.T("Initializing 3D viewer...");
             UpdateMetadata();
             LoadSourceImagePreview();
 
@@ -79,7 +80,7 @@ namespace CoRFAGen.UI
             }
             catch (Exception ex)
             {
-                StatusText.Text = $"WebView2 init failed: {ex.Message}";
+                StatusText.Text = Loc.T($"WebView2 init failed: {ex.Message}");
             }
         }
 
@@ -87,8 +88,8 @@ namespace CoRFAGen.UI
         {
             if (_attachments.Count == 0) return;
 
-            TxtSourceFiles.Text = string.Join("\n", _attachments.Select(a =>
-                (a.IsPdf ? "PDF: " : "Image: ") + a.FileName));
+            TxtSourceFiles.Text = Loc.T(string.Join("\n", _attachments.Select(a =>
+                (a.IsCad ? "DWG/DXF: " : a.IsPdf ? "PDF: " : "Image: ") + a.FileName)));
             TxtSourceFiles.Visibility = System.Windows.Visibility.Visible;
             ImageBorder.Visibility = System.Windows.Visibility.Visible;
 
@@ -147,8 +148,8 @@ namespace CoRFAGen.UI
                 {
                     TxtDescription.Text = meta.TryGetProperty("description", out var desc)
                         ? desc.GetString() : "—";
-                    TxtCategory.Text = meta.TryGetProperty("category", out var cat)
-                        ? cat.GetString() : "—";
+                    TxtCategory.Text = Loc.T(meta.TryGetProperty("category", out var cat)
+                        ? cat.GetString() : "—");
                 }
 
                 if (root.TryGetProperty("parameters", out var parms) && parms.ValueKind == JsonValueKind.Array)
@@ -157,14 +158,14 @@ namespace CoRFAGen.UI
                 int geomCount = 0;
                 if (root.TryGetProperty("geometry", out var geom) && geom.ValueKind == JsonValueKind.Array)
                     geomCount = geom.GetArrayLength();
-                TxtGeomCount.Text = $"{geomCount} element{(geomCount != 1 ? "s" : "")}";
+                TxtGeomCount.Text = Loc.T($"{geomCount} element{(geomCount != 1 ? "s" : "")}");
             }
             catch
             {
                 TxtDescription.Text = "—";
                 TxtCategory.Text = "—";
                 TxtParamCount.Text = "—";
-                TxtGeomCount.Text = "—";
+                TxtGeomCount.Text = Loc.T("—");
             }
         }
 
@@ -174,11 +175,11 @@ namespace CoRFAGen.UI
             {
                 _webViewReady = true;
                 LoadFamilyIntoViewer();
-                StatusText.Text = "Ready.";
+                StatusText.Text = Loc.T("Ready.");
             }
             else
             {
-                StatusText.Text = "Failed to load viewer.";
+                StatusText.Text = Loc.T("Failed to load viewer.");
             }
         }
 
@@ -192,7 +193,7 @@ namespace CoRFAGen.UI
                 .Replace("\n", "\\n")
                 .Replace("\r", "\\r");
 
-            string script = $"try {{ loadFamilyData(JSON.parse('{escapedJson}')); }} catch(e) {{ console.error('Load error:', e); }}";
+            string script = $"try {{ setLanguage('{Loc.Language}'); loadFamilyData(JSON.parse('{escapedJson}')); }} catch(e) {{ console.error('Load error:', e); }}";
             await WebView.CoreWebView2.ExecuteScriptAsync(script);
         }
 
@@ -228,7 +229,7 @@ namespace CoRFAGen.UI
 
             if (string.IsNullOrWhiteSpace(_apiKey) || string.IsNullOrWhiteSpace(_modelName))
             {
-                System.Windows.MessageBox.Show(
+                Loc.Show(
                     $"No API key / model configured for {LlmProviders.DisplayName(_provider)}. Open CoRFAGen › Settings first.",
                     "CoRFAGen", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Warning);
                 return;
@@ -245,7 +246,7 @@ namespace CoRFAGen.UI
                 string validationError = FamilyAiService.ValidateFamilyJson(newJson);
                 if (validationError != null)
                 {
-                    System.Windows.MessageBox.Show(validationError,
+                    Loc.Show(validationError,
                         "CoRFAGen - Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
                     SetRefining(false);
                     return;
@@ -255,22 +256,22 @@ namespace CoRFAGen.UI
                 UpdateMetadata();
                 LoadFamilyIntoViewer();
                 TxtPrompt.Clear();
-                StatusText.Text = "Family updated.";
+                StatusText.Text = Loc.T("Family updated.");
             }
             catch (LlmException ex)
             {
                 Debug.WriteLine($"Response: {ex.ResponseJson}");
-                System.Windows.MessageBox.Show($"AI API error: {ex.Message}",
+                Loc.Show($"AI API error: {ex.Message}",
                     "CoRFAGen - Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             catch (JsonException ex)
             {
-                System.Windows.MessageBox.Show($"Invalid JSON in API response: {ex.Message}",
+                Loc.Show($"Invalid JSON in API response: {ex.Message}",
                     "CoRFAGen - Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error: {ex.Message}",
+                Loc.Show($"Error: {ex.Message}",
                     "CoRFAGen - Error", System.Windows.MessageBoxButton.OK, System.Windows.MessageBoxImage.Error);
             }
             finally
@@ -286,12 +287,12 @@ namespace CoRFAGen.UI
             TxtPrompt.IsEnabled = !refining;
             RefineProgress.Visibility = refining ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
             if (status != null)
-                RefineStatusText.Text = status;
+                RefineStatusText.Text = Loc.T(status);
         }
 
         private async void BtnGenerate_Click(object sender, RoutedEventArgs e)
         {
-            StatusText.Text = "Capturing current state...";
+            StatusText.Text = Loc.T("Capturing current state...");
 
             try
             {

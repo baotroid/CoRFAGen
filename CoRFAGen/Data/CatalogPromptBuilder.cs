@@ -42,6 +42,7 @@ RULES
                 sb.AppendLine();
                 sb.AppendLine("USER NOTES: " + userContext.Trim());
             }
+            sb.AppendLine(FamilyPromptBuilder.LanguageNote());
             return sb.ToString();
         }
 

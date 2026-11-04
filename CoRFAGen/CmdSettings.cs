@@ -20,7 +20,7 @@ namespace CoRFAGen
         internal static PushButtonData GetButtonData()
         {
             string buttonInternalName = "btnCoRFAGenSettings";
-            string buttonTitle = "Settings";
+            string buttonTitle = "Settings";   // translated with the ribbon language, see App
 
             Helpers.ButtonDataClass myButtonData = new Helpers.ButtonDataClass(
                 buttonInternalName,

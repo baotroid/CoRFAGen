@@ -14,7 +14,7 @@ namespace CoRFAGen
             Document doc = uiapp.ActiveUIDocument?.Document;
             if (doc == null || !doc.IsFamilyDocument)
             {
-                TaskDialog.Show("TypeGen", "TypeGen must be run inside the Family Editor.\n\nOpen or create a family document first.");
+                Loc.ShowTask("TypeGen", "TypeGen must be run inside the Family Editor.\n\nOpen or create a family document first.");
                 return Result.Cancelled;
             }
 
@@ -47,7 +47,7 @@ namespace CoRFAGen
             if (!r.Success)
             {
                 CmdPreGenerate.SaveReport(r, doc.Title + "-types");
-                TaskDialog.Show("TypeGen - Error", (r.ErrorMessage ?? "Generation failed.") +
+                Loc.ShowTask("TypeGen - Error", (r.ErrorMessage ?? "Generation failed.") +
                     (r.Errors.Count > 0 ? "\n\n" + string.Join("\n", r.Errors.Take(15)) : ""));
                 return Result.Failed;
             }
@@ -107,10 +107,10 @@ namespace CoRFAGen
                               "(errors \"Cannot make extrusion\" when switching types, parts of another actuator).",
                 CommonButtons = TaskDialogCommonButtons.Cancel
             };
-            td.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Full clean, then generate (recommended)",
+            Loc.AddLink(td, TaskDialogCommandLinkId.CommandLink1, "Full clean, then generate (recommended)",
                 "Removes geometry, nested families, dimensions, own reference planes, lookup tables and size_lookup formulas. Parameters are kept.");
-            td.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "Generate into this family as it is");
-            TaskDialogResult res = td.Show();
+            Loc.AddLink(td, TaskDialogCommandLinkId.CommandLink2, "Generate into this family as it is");
+            TaskDialogResult res = Loc.Localize(td).Show();
             if (res == TaskDialogResult.CommandLink2) return true;
             if (res != TaskDialogResult.CommandLink1) return false;
             try
@@ -126,7 +126,7 @@ namespace CoRFAGen
             }
             catch (Exception ex)
             {
-                TaskDialog.Show("TypeGen", "Full clean failed: " + ex.Message);
+                Loc.ShowTask("TypeGen", "Full clean failed: " + ex.Message);
                 return false;
             }
         }

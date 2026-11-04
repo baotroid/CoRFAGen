@@ -2,6 +2,9 @@
 {
     public class CoRFAGenSettings
     {
+        /// <summary>Interface language: "en" or "ru".</summary>
+        public string Language { get; set; } = Loc.English;
+
         /// <summary>Active AI provider: "Claude", "Gemini" or "Qwen".</summary>
         public string Provider { get; set; } = LlmProviders.Claude;
 

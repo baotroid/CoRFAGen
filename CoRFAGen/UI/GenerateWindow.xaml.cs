@@ -36,6 +36,7 @@ namespace CoRFAGen.UI
         public GenerateWindow(CoRFAGenSettingsManager settingsManager, ParameterTargetContext familyParams = null)
         {
             InitializeComponent();
+            Loc.Apply(this);
             _settingsManager = settingsManager;
             _familyParams = familyParams ?? new ParameterTargetContext();
 
@@ -50,8 +51,8 @@ namespace CoRFAGen.UI
             ChkUseSharedFile.IsChecked = s.UseSharedParameterFile;
             if (!string.IsNullOrWhiteSpace(s.SharedParameterFilePath)) TxtSharedFile.Text = s.SharedParameterFilePath;
             SharedFilePanel.IsEnabled = s.UseSharedParameterFile;
-            TxtParamInfo.Text = $"Family / template language: {_familyParams.LanguageName}; " +
-                                $"{_familyParams.FamilyParameters.Count} own parameter(s) in the family.";
+            TxtParamInfo.Text = Loc.T($"Family / template language: {_familyParams.LanguageName}; " +
+                                $"{_familyParams.FamilyParameters.Count} own parameter(s) in the family.");
             _initializing = false;
         }
 
@@ -85,8 +86,8 @@ namespace CoRFAGen.UI
         {
             var dlg = new OpenFileDialog
             {
-                Title = $"Select up to {MaxFiles} files of the same object (DWG/DXF or PDF drawing, JPG photo, PNG sketch)",
-                Filter = InputAttachment.OpenFileFilter,
+                Title = Loc.T($"Select up to {MaxFiles} files of the same object (DWG/DXF or PDF drawing, JPG photo, PNG sketch)"),
+                Filter = Loc.T(InputAttachment.OpenFileFilter),
                 Multiselect = true
             };
             if (dlg.ShowDialog() != true) return;
@@ -101,7 +102,7 @@ namespace CoRFAGen.UI
             }
 
             if (skipped.Count > 0)
-                System.Windows.MessageBox.Show("Not added:\n" + string.Join("\n", skipped) +
+                Loc.Show("Not added:\n" + string.Join("\n", skipped) +
                     $"\n\nOne family can be generated from at most {MaxFiles} files: DWG, DXF, PDF, JPG/JPEG, PNG (WEBP).",
                     "CoRFAGen", MessageBoxButton.OK, MessageBoxImage.Information);
 
@@ -119,12 +120,12 @@ namespace CoRFAGen.UI
             BtnGenerate.IsEnabled = _selectedFiles.Count > 0;
             if (_selectedFiles.Count == 0)
             {
-                TxtFilePath.Text = "No files selected";
+                TxtFilePath.Text = Loc.T("No files selected");
                 PreviewBorder.Visibility = System.Windows.Visibility.Collapsed;
                 return;
             }
 
-            TxtFilePath.Text = _selectedFiles.Count == 1 ? _selectedFiles[0] : $"{_selectedFiles.Count} of {MaxFiles} files selected";
+            TxtFilePath.Text = Loc.T(_selectedFiles.Count == 1 ? _selectedFiles[0] : $"{_selectedFiles.Count} of {MaxFiles} files selected");
             LoadPreview(_selectedFiles);
         }
 
@@ -151,14 +152,14 @@ namespace CoRFAGen.UI
                 catch { }
             }
 
-            TxtFileList.Text = string.Join("\n", files.Select((f, i) =>
+            TxtFileList.Text = Loc.T(string.Join("\n", files.Select((f, i) =>
             {
                 string role = CadDrawingReader.IsCadFile(f) ? "CAD drawing"
                     : f.EndsWith(".pdf", StringComparison.OrdinalIgnoreCase) ? "PDF drawing / data"
                     : f.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ? "sketch / image" : "photo";
                 long size = new FileInfo(f).Length;
                 return $"{i + 1}. {Path.GetFileName(f)}  —  {role}, {size / 1024.0:F0} KB";
-            }));
+            })));
             PreviewBorder.Visibility = System.Windows.Visibility.Visible;
         }
 
@@ -173,8 +174,8 @@ namespace CoRFAGen.UI
         {
             var dlg = new OpenFileDialog
             {
-                Title = "Select a shared parameter file (ФОП)",
-                Filter = "Shared parameter files (*.txt)|*.txt|All Files|*.*"
+                Title = Loc.T("Select a shared parameter file (ФОП)"),
+                Filter = Loc.T("Shared parameter files (*.txt)|*.txt|All Files|*.*")
             };
             string cur = TxtSharedFile.Text;
             try { if (File.Exists(cur)) dlg.InitialDirectory = Path.GetDirectoryName(cur); } catch { }
@@ -184,17 +185,17 @@ namespace CoRFAGen.UI
                 var list = ParameterTargetContext.ParseSharedParameterFile(dlg.FileName);
                 if (list.Count == 0)
                 {
-                    System.Windows.MessageBox.Show("No parameters found in this file. Is it a Revit shared parameter file?",
+                    Loc.Show("No parameters found in this file. Is it a Revit shared parameter file?",
                         "CoRFAGen", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
                 TxtSharedFile.Text = dlg.FileName;
-                TxtParamInfo.Text = $"Family / template language: {_familyParams.LanguageName}; " +
-                                    $"{_familyParams.FamilyParameters.Count} own parameter(s); shared file: {list.Count} parameter(s).";
+                TxtParamInfo.Text = Loc.T($"Family / template language: {_familyParams.LanguageName}; " +
+                                    $"{_familyParams.FamilyParameters.Count} own parameter(s); shared file: {list.Count} parameter(s).");
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show("Cannot read the shared parameter file: " + ex.Message, "CoRFAGen",
+                Loc.Show("Cannot read the shared parameter file: " + ex.Message, "CoRFAGen",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         }
@@ -208,7 +209,7 @@ namespace CoRFAGen.UI
             string sharedPath = TxtSharedFile.Text;
             if (useShared && !File.Exists(sharedPath))
             {
-                System.Windows.MessageBox.Show("Select the shared parameter file (ФОП) or untick the option.", "CoRFAGen",
+                Loc.Show("Select the shared parameter file (ФОП) or untick the option.", "CoRFAGen",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 ok = false;
                 return null;
@@ -232,7 +233,7 @@ namespace CoRFAGen.UI
                 try { ctx.SharedFileParameters.AddRange(ParameterTargetContext.ParseSharedParameterFile(sharedPath)); }
                 catch (Exception ex)
                 {
-                    System.Windows.MessageBox.Show("Cannot read the shared parameter file: " + ex.Message, "CoRFAGen",
+                    Loc.Show("Cannot read the shared parameter file: " + ex.Message, "CoRFAGen",
                         MessageBoxButton.OK, MessageBoxImage.Warning);
                     ok = false;
                     return null;
@@ -247,7 +248,7 @@ namespace CoRFAGen.UI
         {
             if (_selectedFiles.Count == 0 || _selectedFiles.Any(f => !File.Exists(f)))
             {
-                System.Windows.MessageBox.Show("Please select valid PDF / image files.", "CoRFAGen",
+                Loc.Show("Please select valid PDF / image files.", "CoRFAGen",
                     MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
             }
@@ -261,7 +262,7 @@ namespace CoRFAGen.UI
             {
                 string who = CoRFAGenSettings.IsOpenRouterModel(modelName) && LlmProviders.Normalize(provider) == LlmProviders.Qwen
                     ? "OpenRouter (model " + modelName + ")" : LlmProviders.DisplayName(provider);
-                System.Windows.MessageBox.Show(
+                Loc.Show(
                     $"No API key configured for {who}.\n\nOpen CoRFAGen › Settings and enter the key, or choose another provider.",
                     "CoRFAGen", MessageBoxButton.OK, MessageBoxImage.Warning);
                 return;
@@ -286,13 +287,13 @@ namespace CoRFAGen.UI
                 service.ParameterMappingText = paramCtx?.BuildPromptText();
 
                 string userContext = TxtContext.Text?.Trim();
-                var pipeline = new GenerationPipeline(service, msg => StatusLabel.Text = msg);
+                var pipeline = new GenerationPipeline(service, msg => StatusLabel.Text = Loc.T(msg));
 
                 PipelineResult result = await pipeline.RunAsync(attachments, userContext, checkInput, verify, AskUser);
                 if (result.Cancelled)
                 {
                     SetGenerating(false);
-                    StatusLabel.Text = "Cancelled.";
+                    StatusLabel.Text = Loc.T("Cancelled.");
                     return;
                 }
 
@@ -300,7 +301,7 @@ namespace CoRFAGen.UI
                 string mapNote = null;
                 if (paramCtx != null)
                 {
-                    StatusLabel.Text = $"Mapping parameters to the family / shared parameter file ({paramCtx.LanguageName})...";
+                    StatusLabel.Text = Loc.T($"Mapping parameters to the family / shared parameter file ({paramCtx.LanguageName})...");
                     var mapLog = new List<string>();
                     familyJson = await ParameterMapper.MapAsync(familyJson, paramCtx, service, mapLog);
                     mapNote = MappingSummary(mapLog);
@@ -319,19 +320,19 @@ namespace CoRFAGen.UI
             catch (LlmException ex)
             {
                 Debug.WriteLine($"Response: {ex.ResponseJson}");
-                System.Windows.MessageBox.Show($"AI API error: {ex.Message}", "CoRFAGen - Error",
+                Loc.Show($"AI API error: {ex.Message}", "CoRFAGen - Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 SetGenerating(false);
             }
             catch (TaskCanceledException)
             {
-                System.Windows.MessageBox.Show("The request timed out. Try a faster model or a smaller PDF.",
+                Loc.Show("The request timed out. Try a faster model or a smaller PDF.",
                     "CoRFAGen - Error", MessageBoxButton.OK, MessageBoxImage.Error);
                 SetGenerating(false);
             }
             catch (Exception ex)
             {
-                System.Windows.MessageBox.Show($"Error: {ex.Message}", "CoRFAGen - Error",
+                Loc.Show($"Error: {ex.Message}", "CoRFAGen - Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
                 SetGenerating(false);
             }
@@ -356,8 +357,8 @@ namespace CoRFAGen.UI
             string logsFolder = CoRFAGenSettingsManager.GetLogsFolderPath();
             var dlg = new OpenFileDialog
             {
-                Title = "Load a family JSON",
-                Filter = "JSON Files|*.json|All Files|*.*",
+                Title = Loc.T("Load a family JSON"),
+                Filter = Loc.T("JSON Files|*.json|All Files|*.*"),
                 InitialDirectory = Directory.Exists(logsFolder) ? logsFolder : null
             };
             if (dlg.ShowDialog() != true) return;
@@ -367,7 +368,7 @@ namespace CoRFAGen.UI
                 string json = File.ReadAllText(dlg.FileName);
                 if (FamilyAiService.ValidateFamilyJson(json) != null)
                 {
-                    System.Windows.MessageBox.Show("This JSON file doesn't match the family schema (missing metadata or geometry).",
+                    Loc.Show("This JSON file doesn't match the family schema (missing metadata or geometry).",
                         "CoRFAGen", MessageBoxButton.OK, MessageBoxImage.Warning);
                     return;
                 }
@@ -404,7 +405,7 @@ namespace CoRFAGen.UI
             catch (Exception ex)
             {
                 SetGenerating(false);
-                System.Windows.MessageBox.Show($"Failed to load JSON: {ex.Message}", "CoRFAGen - Error",
+                Loc.Show($"Failed to load JSON: {ex.Message}", "CoRFAGen - Error",
                     MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -425,7 +426,7 @@ namespace CoRFAGen.UI
             ChkUseSharedFile.IsEnabled = !generating;
             SharedFilePanel.IsEnabled = !generating && ChkUseSharedFile.IsChecked == true;
             ProgressPanel.Visibility = generating ? System.Windows.Visibility.Visible : System.Windows.Visibility.Collapsed;
-            if (status != null) StatusLabel.Text = status;
+            if (status != null) StatusLabel.Text = Loc.T(status);
         }
     }
 }

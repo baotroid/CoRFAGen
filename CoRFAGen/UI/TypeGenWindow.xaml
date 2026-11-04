@@ -45,10 +45,10 @@
                 <Grid>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock FontSize="14" FontWeight="Bold" Foreground="White" VerticalAlignment="Center">
-                            <Run Text="RFA"/><Run Text="|" Foreground="{StaticResource AccentBrush}"/><Run Text="Gen"/>
+                            <Run Text="Co" Foreground="{StaticResource AccentBrush}"/><Run Text="RFAGen"/>
                         </TextBlock>
                         <TextBlock Text="&#x00B7;" FontSize="13" Foreground="{StaticResource AccentBrush}" VerticalAlignment="Center" Margin="10,0"/>
-                        <TextBlock Text="CoRFAGen  ·  TypeGen — family types from a catalog table" FontSize="11"
+                        <TextBlock Text="TypeGen — family types from a catalog table" FontSize="11"
                                    Foreground="{StaticResource YellowBrush}" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button Click="BtnCancel_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Cursor="Hand">
@@ -190,7 +190,7 @@
                                   ToolTip="Actuator / drive elements are hidden by the instance yes/no parameter (Показать_привод)."/>
                         <CheckBox x:Name="ChkConnectors" IsChecked="True" Content="Pipe connectors (DN) · Pipe Accessories" Margin="0,6,0,0"
                                   ToolTip="Two pipe connectors (system Global) on the end faces at ±L/2, diameter = DN of the type. A Generic Model family is switched to the Pipe Accessories category, part type Valve - Breaks Into."/>
-                        <CheckBox x:Name="ChkLookup" IsChecked="True" Content="Lookup table (size_lookup by DN, PN)" Margin="0,6,0,0"
+                        <CheckBox x:Name="ChkLookup" IsChecked="True" Content="Lookup table (size__lookup by DN, PN)" Margin="0,6,0,0"
                                   ToolTip="Embeds the table as the lookup table BGS_Catalog (Manage Lookup Tables) and drives the numeric type parameters by size_lookup on DN and PN. Every type is still created."/>
                     </StackPanel>
                 </Grid>

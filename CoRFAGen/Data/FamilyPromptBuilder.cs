@@ -45,6 +45,11 @@ namespace CoRFAGen.Data
             return sb.ToString();
         }
 
+        /// <summary>When the interface is in Russian, the model writes what the user reads in Russian. The JSON structure stays as specified.</summary>
+        internal static string LanguageNote() => !Loc.IsRussian ? "" :
+            "\nLANGUAGE OF YOUR ANSWER: write every human-readable explanation in Russian: questions and options of conflicts, what a conflict affects, " +
+            "assumptions, notes, warnings and descriptions of issues. JSON keys, enum values, numbers, units and parameter names stay exactly as specified.";
+
         public static string RoleOf(InputAttachment a)
         {
             if (a.IsCad) return "DWG/DXF: 2D CAD drawing; the attached image is its rendered sheet and its exact dimensions, texts and coordinates are listed below";
@@ -103,6 +108,7 @@ Return exactly this JSON structure (all lengths in the drawing units):
             sb.AppendLine(DescribeFiles(attachments));
             sb.AppendLine("Analyse the sources and return the analysis JSON (not the family).");
             AppendContext(sb, userContext);
+            sb.AppendLine(LanguageNote());
             return sb.ToString();
         }
 
@@ -205,6 +211,7 @@ Otherwise fix the family and return
             sb.AppendLine(geometryReport);
             sb.AppendLine("Verify the family against the source files and return the verification JSON.");
             AppendContext(sb, userContext);
+            sb.AppendLine(LanguageNote());
             return sb.ToString();
         }
 

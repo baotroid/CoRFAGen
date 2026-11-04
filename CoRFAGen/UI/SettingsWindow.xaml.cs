@@ -14,8 +14,10 @@ namespace CoRFAGen.UI
         public SettingsWindow()
         {
             InitializeComponent();
+            Loc.Apply(this);
             _viewModel = new SettingsWindowViewModel();
             DataContext = _viewModel;
+            _viewModel.LanguageChanged += () => Loc.Apply(this);
 
             ClaudeKeyPasswordBox.Password = _viewModel.ClaudeApiKey;
             GeminiKeyPasswordBox.Password = _viewModel.GeminiApiKey;

@@ -19,13 +19,14 @@ namespace CoRFAGen.UI
         public ConflictWindow(SourceAnalysis analysis)
         {
             InitializeComponent();
+            Loc.Apply(this);
             _analysis = analysis;
 
             string summary = analysis.Summary();
             if (analysis.TechnicalDataLines.Count > 0)
                 summary += "\nTechnical data found: " + string.Join("; ", analysis.TechnicalDataLines.Take(8)) +
                            (analysis.TechnicalDataLines.Count > 8 ? " ..." : "");
-            TxtSummary.Text = summary;
+            TxtSummary.Text = Loc.T(summary);
 
             BuildRows();
         }
@@ -62,7 +63,7 @@ namespace CoRFAGen.UI
                 if (!string.IsNullOrWhiteSpace(c.Affects))
                     stack.Children.Add(new TextBlock
                     {
-                        Text = "Affects: " + c.Affects,
+                        Text = Loc.T("Affects: " + c.Affects),
                         FontSize = 11,
                         Foreground = yellow,
                         Margin = new Thickness(0, 2, 0, 4),
@@ -78,7 +79,7 @@ namespace CoRFAGen.UI
                         GroupName = group,
                         Content = new TextBlock
                         {
-                            Text = c.Options[i].Label + (i == c.Recommended ? "   (recommended)" : ""),
+                            Text = c.Options[i].Label + (i == c.Recommended ? Loc.IsRussian ? "   (рекомендуется)" : "   (recommended)" : ""),
                             TextWrapping = TextWrapping.Wrap
                         },
                         IsChecked = i == c.Recommended
@@ -91,7 +92,7 @@ namespace CoRFAGen.UI
                 var customRadio = new System.Windows.Controls.RadioButton
                 {
                     GroupName = group,
-                    Content = "Other value:",
+                    Content = Loc.T("Other value:"),
                     VerticalAlignment = VerticalAlignment.Center,
                     Margin = new Thickness(0, 0, 8, 0)
                 };
@@ -124,7 +125,7 @@ namespace CoRFAGen.UI
                     string v = row.customBox.Text?.Trim();
                     if (string.IsNullOrEmpty(v))
                     {
-                        System.Windows.MessageBox.Show($"Enter a value for:\n{row.conflict.Question}", "CoRFAGen",
+                        Loc.Show($"Enter a value for:\n{row.conflict.Question}", "CoRFAGen",
                             MessageBoxButton.OK, MessageBoxImage.Warning);
                         row.customBox.Focus();
                         return;

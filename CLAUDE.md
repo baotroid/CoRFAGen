@@ -31,6 +31,7 @@ CoRFAGen/CoRFAGen.csproj       multi-target add-in project
                              (model ids containing "/" go to OpenRouter with the OpenRouter key)
     PdfRasterizer.cs         PDF → PNG pages (+ text layer) via Docnet.Core/pdfium for providers without PDF input
     CadDrawingReader.cs      DWG/DXF (ACadSharp) → sheet PNG + exact data text: sheet frame, blocks, labels vs drawn length, view scales
+    Loc.cs, LocDictionary.cs interface language: English text in code/XAML, Russian by exact line or pattern ({0}, {m0} = nested)
     FamilyAiService.cs       Analyze / Generate / Verify / Refine / SendTextAsync facade
     FamilyPromptBuilder.cs   prompts; GenerationPipeline.cs (analyse → conflicts → generate → verify)
     SourceAnalysis.cs, GeometryInspector.cs   conflict model, JSON-only geometry check
@@ -104,6 +105,11 @@ docs/                        HISTORY_RU.md (development history & decisions), mo
   generated families; `BeGenSt.addin` in the installer and post-build cleanup; migration of `%AppData%\BeGenSt\RFAGen\RFAGen.json` to `%AppData%\CoRFAGen\CoRFAGen.json`;
   old rows of `docs/HISTORY_RU.md` and past release notes; `LICENSE` and the FamFab attribution.
 * In public texts name the host as "plug-in for Autodesk Revit" and keep the trademark notice (README files, MSI comments).
+* New user-visible text: write it in English, add the line to `LocDictionary.cs`, and send it through `Loc.T` / `Loc.Show` / `Loc.ShowTask` (windows: `Loc.Apply(this)` after
+  InitializeComponent). A missing line stays English, nothing breaks. Requests to the AI and report files stay in English; `FamilyPromptBuilder.LanguageNote` asks the model for
+  Russian answers. Button labels and the plug-in name are not translated; the Settings ribbon button is. In WPF content a literal `_` needs `__`.
+* A UI change can be checked outside Revit: load the Release R24 DLL in a net48 process, `Loc.SetLanguage`, create the window and render it (RevitAPI is not touched until a Revit call runs).
+* Proposed ribbon icons: `docs/icon-variants` (`make_icons.py`, `preview.png`); same file names as `CoRFAGen/Resources`.
 * Never log or echo API keys; keys live only in the user's CoRFAGen.json. `LlmHttp.SanitizeKey` strips invisible chars.
 
 ## Workflow / sync rules

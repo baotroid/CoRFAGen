@@ -42,12 +42,12 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock FontSize="13" FontWeight="SemiBold"
                                    Foreground="#FFFFFF" VerticalAlignment="Center">
-                            <Run Text="RFA"/><Run Text="|" Foreground="{StaticResource AccentBrush}"/><Run Text="Gen"/>
+                            <Run Text="Co" Foreground="{StaticResource AccentBrush}"/><Run Text="RFAGen"/>
                         </TextBlock>
                         <TextBlock Text="&#x00B7;" FontSize="13"
                                    Foreground="#6A7078" VerticalAlignment="Center"
                                    Margin="10,0"/>
-                        <TextBlock Text="CoRFAGen  ·  Preview" FontSize="11"
+                        <TextBlock Text="Preview" FontSize="11"
                                    Foreground="#FFD27A" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button Click="BtnClose_Click"

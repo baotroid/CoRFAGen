@@ -284,6 +284,14 @@
             SaveSettings();
         }
 
+        public string GetLanguage() => _settings.Language == Loc.Russian ? Loc.Russian : Loc.English;
+
+        public void SetLanguage(string language)
+        {
+            _settings.Language = language == Loc.Russian ? Loc.Russian : Loc.English;
+            SaveSettings();
+        }
+
         public void SetPipelineOptions(bool checkInput, bool verify)
         {
             _settings.CheckInputConsistency = checkInput;

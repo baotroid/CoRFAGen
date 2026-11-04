@@ -15,7 +15,7 @@ namespace CoRFAGen
 
             if (!doc.IsFamilyDocument)
             {
-                TaskDialog.Show("CoRFAGen",
+                Loc.ShowTask("CoRFAGen",
                     "CoRFAGen must be run inside the Family Editor.\n\nOpen or create a family document first.");
                 return Result.Failed;
             }
@@ -23,8 +23,8 @@ namespace CoRFAGen
             var settingsManager = new CoRFAGenSettingsManager();
             if (!settingsManager.HasAnyApiKey())
             {
-                TaskDialog.Show("CoRFAGen",
-                    "Please configure an API key first (Anthropic Claude or Google Gemini).\n\nOpen CoRFAGen › Family Generator › Settings to enter your key.");
+                Loc.ShowTask("CoRFAGen",
+                    "Please configure an API key first (Anthropic Claude, Google Gemini or Qwen).\n\nOpen CoRFAGen › Family Generator › Settings to enter your key.");
                 return Result.Failed;
             }
 
@@ -77,7 +77,7 @@ namespace CoRFAGen
                     if (reportPath != null)
                         summary += $"\n\nReport: {reportPath}";
 
-                    TaskDialog.Show(allCreated ? "CoRFAGen - Complete" : "CoRFAGen - Completed with warnings", summary);
+                    Loc.ShowTask(allCreated ? "CoRFAGen - Complete" : "CoRFAGen - Completed with warnings", summary);
                 }
                 else
                 {
@@ -85,7 +85,7 @@ namespace CoRFAGen
                     if (genResult.Errors.Count > 0)
                         errorMsg += "\n\nDetails:\n" + string.Join("\n", genResult.Errors);
 
-                    TaskDialog.Show("CoRFAGen - Error", errorMsg);
+                    Loc.ShowTask("CoRFAGen - Error", errorMsg);
                     return Result.Failed;
                 }
             }
@@ -247,7 +247,7 @@ namespace CoRFAGen
                 MethodBase.GetCurrentMethod().DeclaringType?.FullName,
                 Properties.Resources.pregen_32,
                 Properties.Resources.pregen_16,
-                "Generate: build a Revit family from up to 3 files (PDF drawing, JPG photo, PNG sketch) with AI (Claude, Gemini or Qwen), check it and preview it before CoRFAGen. Options: fill the family/template parameters or a shared parameter file (ФОП) in the family's language.");
+                "Generate: build a Revit family from up to 3 files (DWG/DXF or PDF drawing, JPG photo, PNG sketch) with AI (Claude, Gemini or Qwen), check it and preview it before CoRFAGen. Options: fill the family/template parameters or a shared parameter file (ФОП) in the family's language.");
 
             return myButtonData.Data;
         }

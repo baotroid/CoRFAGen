@@ -3,9 +3,9 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="CoRFAGen Settings"
         Width="480"
-        Height="700"
+        Height="770"
         MinWidth="360"
-        MinHeight="640"
+        MinHeight="700"
         WindowStartupLocation="CenterScreen"
         WindowStyle="None"
         AllowsTransparency="True"
@@ -41,7 +41,7 @@
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock FontSize="13" FontWeight="SemiBold"
                                    Foreground="#FFFFFF" VerticalAlignment="Center">
-                            <Run Text="RFA"/><Run Text="|" Foreground="{StaticResource AccentBrush}"/><Run Text="Gen"/>
+                            <Run Text="Co" Foreground="{StaticResource AccentBrush}"/><Run Text="RFAGen"/>
                         </TextBlock>
                         <TextBlock Text="&#x00B7;" FontSize="13"
                                    Foreground="#6A7078" VerticalAlignment="Center"
@@ -96,6 +96,9 @@
                     <TextBlock Text="Active AI Provider" Margin="0,0,0,6" FontWeight="SemiBold"/>
                     <ComboBox ItemsSource="{Binding Providers}"
                               SelectedItem="{Binding SelectedProvider}"/>
+                    <TextBlock Text="Interface language" Margin="0,10,0,6" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding Languages}"
+                              SelectedItem="{Binding SelectedLanguage}"/>
                 </StackPanel>
 
                 <!-- Claude API Key -->
@@ -184,7 +187,7 @@
                     <ComboBox IsEditable="True"
                               ItemsSource="{Binding AvailableModels}"
                               Text="{Binding SelectedModel, Mode=TwoWay, UpdateSourceTrigger=LostFocus}"/>
-                    <TextBlock Text="You can type any model id supported by the provider."
+                    <TextBlock Text="You can type any model id supported by the provider." TextWrapping="Wrap"
                                Foreground="{StaticResource TextSecondaryBrush}" FontSize="11" Margin="0,4,0,0"/>
                 </StackPanel>
 

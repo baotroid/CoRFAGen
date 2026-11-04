@@ -12,7 +12,7 @@ namespace CoRFAGen
             if (doc == null) return Result.Cancelled;
             if (!doc.IsFamilyDocument)
             {
-                TaskDialog.Show("CoRFAGen Purge", "Purge works in the Family Editor. Open the family (.rfa) first.");
+                Loc.ShowTask("CoRFAGen Purge", "Purge works in the Family Editor. Open the family (.rfa) first.");
                 return Result.Cancelled;
             }
 
@@ -30,12 +30,12 @@ namespace CoRFAGen
                     MainContent = "The family contains its own content:\n" + content.Text(content.Found),
                     CommonButtons = TaskDialogCommonButtons.Cancel
                 };
-                mode.AddCommandLink(TaskDialogCommandLinkId.CommandLink1, "Purge unused elements",
+                Loc.AddLink(mode, TaskDialogCommandLinkId.CommandLink1, "Purge unused elements",
                     "Like Revit Purge Unused (several passes) + compact save. Geometry and parameters stay.");
-                mode.AddCommandLink(TaskDialogCommandLinkId.CommandLink2, "Full clean before generation (TypeGen / CoRFAGen)",
+                Loc.AddLink(mode, TaskDialogCommandLinkId.CommandLink2, "Full clean before generation (TypeGen / CoRFAGen)",
                     "Removes geometry, connectors, nested families, dimensions, lines, own reference planes, lookup tables and " +
                     "size_lookup formulas, then purges unused elements. Family parameters are kept.");
-                TaskDialogResult m = mode.Show();
+                TaskDialogResult m = Loc.Localize(mode).Show();
                 if (m == TaskDialogResult.Cancel || m == TaskDialogResult.Close) return Result.Cancelled;
                 if (m == TaskDialogResult.CommandLink2)
                 {
@@ -43,7 +43,7 @@ namespace CoRFAGen
                     try { cleaned = FamilyCleaner.Clean(doc); }
                     catch (Exception ex)
                     {
-                        TaskDialog.Show("CoRFAGen Purge", "Full clean failed: " + ex.Message);
+                        Loc.ShowTask("CoRFAGen Purge", "Full clean failed: " + ex.Message);
                         return Result.Failed;
                     }
                     FamilyPurger.PurgeResult pr = null;
@@ -63,7 +63,7 @@ namespace CoRFAGen
             try { unused = FamilyPurger.FindUnused(doc); }
             catch (Exception ex)
             {
-                TaskDialog.Show("CoRFAGen Purge", "Could not analyse the family: " + ex.Message);
+                Loc.ShowTask("CoRFAGen Purge", "Could not analyse the family: " + ex.Message);
                 return Result.Failed;
             }
 
@@ -85,19 +85,19 @@ namespace CoRFAGen
                 CommonButtons = TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No,
                 DefaultButton = TaskDialogResult.Yes
             };
-            if (confirm.Show() != TaskDialogResult.Yes) return Result.Cancelled;
+            if (Loc.Localize(confirm).Show() != TaskDialogResult.Yes) return Result.Cancelled;
 
             FamilyPurger.PurgeResult r;
             try { r = FamilyPurger.Purge(doc); }
             catch (Exception ex)
             {
-                TaskDialog.Show("CoRFAGen Purge", "Purge failed: " + ex.Message);
+                Loc.ShowTask("CoRFAGen Purge", "Purge failed: " + ex.Message);
                 return Result.Failed;
             }
 
             string done = $"Removed {r.Deleted} element(s) in {r.Passes} pass(es)" +
                           (r.Failed > 0 ? $", {r.Failed} could not be deleted" : "") + ":\n" +
-                          string.Join("\n", r.ByKind.OrderByDescending(k => k.Value).Select(k => $"  • {k.Key}: {k.Value}"));
+                          string.Join("\n", r.ByKind.OrderByDescending(k => k.Value).Select(k => $"  • {k.Key}: {k.Value}"));   // kinds are translated with the line
             WriteLog(doc, r.Log);
             OfferCompactSave(doc, path, sizeBefore, done);
             return Result.Succeeded;
@@ -108,7 +108,7 @@ namespace CoRFAGen
         {
             if (string.IsNullOrEmpty(path) || !File.Exists(path))
             {
-                TaskDialog.Show("CoRFAGen Purge", text + "\n\nThe family has not been saved yet — use Save As to write a compact file.");
+                Loc.ShowTask("CoRFAGen Purge", text + "\n\nThe family has not been saved yet — use Save As to write a compact file.");
                 return;
             }
 
@@ -119,18 +119,18 @@ namespace CoRFAGen
                 CommonButtons = TaskDialogCommonButtons.Yes | TaskDialogCommonButtons.No,
                 DefaultButton = TaskDialogResult.Yes
             };
-            if (ask.Show() != TaskDialogResult.Yes) return;
+            if (Loc.Localize(ask).Show() != TaskDialogResult.Yes) return;
 
             try
             {
                 doc.Save(new SaveOptions { Compact = true });
                 long after = SizeOf(path);
-                TaskDialog.Show("CoRFAGen Purge",
+                Loc.ShowTask("CoRFAGen Purge",
                     $"Saved compacted: {FamilyPurger.FormatSize(sizeBefore)} → {FamilyPurger.FormatSize(after)}\n{path}");
             }
             catch (Exception ex)
             {
-                TaskDialog.Show("CoRFAGen Purge", "Could not save: " + ex.Message + "\nUse Save As to write a compact copy.");
+                Loc.ShowTask("CoRFAGen Purge", "Could not save: " + ex.Message + "\nUse Save As to write a compact copy.");
             }
         }
 

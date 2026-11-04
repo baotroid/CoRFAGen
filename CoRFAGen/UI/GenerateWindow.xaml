@@ -40,11 +40,11 @@
                 <Grid>
                     <StackPanel Orientation="Horizontal" VerticalAlignment="Center">
                         <TextBlock FontSize="14" FontWeight="Bold" Foreground="White" VerticalAlignment="Center">
-                            <Run Text="RFA"/><Run Text="|" Foreground="{StaticResource AccentBrush}"/><Run Text="Gen"/>
+                            <Run Text="Co" Foreground="{StaticResource AccentBrush}"/><Run Text="RFAGen"/>
                         </TextBlock>
                         <TextBlock Text="&#x00B7;" FontSize="13" Foreground="{StaticResource AccentBrush}"
                                    VerticalAlignment="Center" Margin="10,0"/>
-                        <TextBlock Text="CoRFAGen  ·  Generate" FontSize="11"
+                        <TextBlock Text="Generate" FontSize="11"
                                    Foreground="{StaticResource YellowBrush}" VerticalAlignment="Center"/>
                     </StackPanel>
                     <Button Click="BtnClose_Click" HorizontalAlignment="Right" VerticalAlignment="Center" Cursor="Hand">

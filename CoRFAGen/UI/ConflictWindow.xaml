@@ -39,7 +39,7 @@
                     MouseDown="TitleBar_MouseDown">
                 <StackPanel Orientation="Horizontal">
                     <TextBlock FontSize="14" FontWeight="Bold" Foreground="White">
-                        <Run Text="RFA"/><Run Text="|" Foreground="{StaticResource AccentBrush}"/><Run Text="Gen"/>
+                        <Run Text="Co" Foreground="{StaticResource AccentBrush}"/><Run Text="RFAGen"/>
                     </TextBlock>
                     <TextBlock Text="  ·  Source data check" FontSize="11" Foreground="{StaticResource YellowBrush}"
                                VerticalAlignment="Center"/>

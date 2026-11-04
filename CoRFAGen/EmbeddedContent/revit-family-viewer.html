@@ -380,15 +380,15 @@
     </div>
 
     <div class="hud hud-bl">
-      <div><span class="hud-label">Units</span><span class="hud-value" id="hudUnits">n/a</span></div>
-      <div><span class="hud-label">Elements</span><span class="hud-value" id="hudElements">0</span></div>
-      <div><span class="hud-label">Camera</span><span class="hud-value" id="hudCamera">iso</span></div>
+      <div><span class="hud-label" data-i18n="Units">Units</span><span class="hud-value" id="hudUnits">n/a</span></div>
+      <div><span class="hud-label" data-i18n="Elements">Elements</span><span class="hud-value" id="hudElements">0</span></div>
+      <div><span class="hud-label" data-i18n="Camera">Camera</span><span class="hud-value" id="hudCamera">iso</span></div>
     </div>
 
     <div class="hud hud-br">
-      <div><span class="hud-label">Drag</span><span class="hud-value">orbit</span></div>
-      <div><span class="hud-label">Shift+Drag</span><span class="hud-value">pan</span></div>
-      <div><span class="hud-label">Scroll</span><span class="hud-value">zoom</span></div>
+      <div><span class="hud-label" data-i18n="Drag">Drag</span><span class="hud-value" data-i18n="orbit">orbit</span></div>
+      <div><span class="hud-label" data-i18n="Shift+Drag">Shift+Drag</span><span class="hud-value" data-i18n="pan">pan</span></div>
+      <div><span class="hud-label" data-i18n="Scroll">Scroll</span><span class="hud-value" data-i18n="zoom">zoom</span></div>
     </div>
 
     <div class="error-banner" id="errorBanner"></div>
@@ -399,7 +399,7 @@
 
     <div class="param-panel" id="paramPanel">
       <div class="param-panel-header">
-        <span class="param-panel-title">Parameters</span>
+        <span class="param-panel-title" data-i18n="Parameters">Parameters</span>
         <button class="param-panel-close" onclick="toggleParamPanel()">&times;</button>
       </div>
       <div class="param-panel-body" id="paramPanelBody"></div>
@@ -687,7 +687,7 @@ class FamilyRenderer {
         }
       } catch (err) {
         console.error('Error building ' + geom.name + ':', err);
-        showError('Error in "' + geom.name + '": ' + err.message);
+        showError(tr('Error in') + ' "' + geom.name + '": ' + err.message);
       }
     }
 
@@ -1328,6 +1328,24 @@ function updateGrid() {
 
 let currentFamily = null;
 
+// Interface language: labels and messages only, button labels stay. Set by the add-in with setLanguage('ru').
+const RU = {
+  'Units': 'Единицы', 'Elements': 'Элементы', 'Camera': 'Камера', 'Drag': 'Перетаскивание', 'Shift+Drag': 'Shift+перетаскивание',
+  'Scroll': 'Колесо', 'orbit': 'вращение', 'pan': 'сдвиг', 'zoom': 'масштаб', 'Parameters': 'Параметры',
+  'No parameters defined.': 'Параметры не заданы.', 'Dimensions': 'Размеры', 'Construction': 'Конструкция',
+  'Materials and Finishes': 'Материалы и отделка', 'Graphics': 'Графика', 'Identity Data': 'Идентификация',
+  'Mechanical': 'Механика', 'Electrical': 'Электросети', 'Other': 'Прочее',
+  'Error in': 'Ошибка в', 'Failed to load: ': 'Не удалось загрузить: ',
+  'Invalid family JSON: missing geometry array': 'Неверный JSON семейства: нет массива geometry',
+  'millimeters': 'миллиметры', 'centimeters': 'сантиметры', 'meters': 'метры', 'inches': 'дюймы', 'feet': 'футы'
+};
+let uiLang = 'en';
+function tr(text) { return uiLang === 'ru' && RU[text] !== undefined ? RU[text] : text; }
+function setLanguage(lang) {
+  uiLang = lang;
+  document.querySelectorAll('[data-i18n]').forEach(el => { el.textContent = tr(el.getAttribute('data-i18n')); });
+}
+
 function showError(msg) {
   const el = document.getElementById('errorBanner');
   el.textContent = msg;
@@ -1341,13 +1359,13 @@ function clearError() {
 }
 
 function renderHUD(family) {
-  document.getElementById('hudUnits').textContent = family.units || 'n/a';
+  document.getElementById('hudUnits').textContent = tr(family.units) || 'n/a';
   document.getElementById('hudElements').textContent = (family.geometry || []).length;
 }
 
 function loadFamilyData(family) {
   if (!family || !family.geometry) {
-    showError('Invalid family JSON: missing geometry array');
+    showError(tr('Invalid family JSON: missing geometry array'));
     return;
   }
   clearError();
@@ -1360,7 +1378,7 @@ function loadFamilyData(family) {
     setView('iso');
     updateGrid();
   } catch (err) {
-    showError('Failed to load: ' + err.message);
+    showError(tr('Failed to load: ') + err.message);
     console.error(err);
   }
 }
@@ -1393,7 +1411,7 @@ function buildParamPanel(family) {
 
   const params = family.parameters || [];
   if (!params.length) {
-    body.innerHTML = '<div style="padding:14px;color:var(--text-faint);font-size:11px;">No parameters defined.</div>';
+    body.innerHTML = '<div style="padding:14px;color:var(--text-faint);font-size:11px;">' + tr('No parameters defined.') + '</div>';
     return;
   }
 
@@ -1418,7 +1436,7 @@ function buildParamPanel(family) {
 
     const header = document.createElement('div');
     header.className = 'param-group-header';
-    header.innerHTML = '<span class="param-group-chevron">&#x25BC;</span>' + escapeHtml(groupName);
+    header.innerHTML = '<span class="param-group-chevron">&#x25BC;</span>' + escapeHtml(tr(groupName));
     header.addEventListener('click', () => groupEl.classList.toggle('collapsed'));
     groupEl.appendChild(header);
 

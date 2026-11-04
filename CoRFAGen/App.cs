@@ -10,6 +10,9 @@
             // Resolve them from the add-in folder regardless of the requested version.
             AppDomain.CurrentDomain.AssemblyResolve += ResolveFromAddinFolder;
 
+            try { Loc.SetLanguage(new Data.CoRFAGenSettingsManager().GetLanguage()); }
+            catch (Exception ex) { Debug.Print("Language not read: " + ex.Message); }
+
             string tabName = "CoRFAGen";
             try
             {
@@ -22,16 +25,40 @@
 
             RibbonPanel panel = Helpers.Utils.CreateRibbonPanel(app, tabName, "Family Generator");
 
-            PushButtonData btnPreGenerate = CmdPreGenerate.GetButtonData();
-            PushButtonData btnSettings = CmdSettings.GetButtonData();
-            PushButtonData btnPurge = CmdPurge.GetButtonData();
-
-            panel.AddItem(btnPurge);
-            panel.AddItem(btnPreGenerate);
-            panel.AddItem(CmdTypeGen.GetButtonData());
-            panel.AddItem(btnSettings);
+            _ribbonPanel = panel;
+            _ribbonButtons.Clear();
+            AddRibbonButton(panel, CmdPurge.GetButtonData());
+            AddRibbonButton(panel, CmdPreGenerate.GetButtonData());
+            AddRibbonButton(panel, CmdTypeGen.GetButtonData());
+            AddRibbonButton(panel, CmdSettings.GetButtonData());
+            ApplyRibbonLanguage();
 
             return Result.Succeeded;
+        }
+
+        private static RibbonPanel _ribbonPanel;
+        private static readonly List<(RibbonItem Item, string Text, string ToolTip)> _ribbonButtons = new List<(RibbonItem, string, string)>();
+
+        private static void AddRibbonButton(RibbonPanel panel, PushButtonData data)
+        {
+            string text = data.Text, tip = data.ToolTip;
+            _ribbonButtons.Add((panel.AddItem(data), text, tip));
+        }
+
+        /// <summary>Panel title, tooltips and the Settings label in the current language; other button labels stay as they are.</summary>
+        internal static void ApplyRibbonLanguage()
+        {
+            try
+            {
+                if (_ribbonPanel == null) return;
+                _ribbonPanel.Title = Loc.T("Family Generator");
+                foreach (var (item, text, tip) in _ribbonButtons)
+                {
+                    item.ToolTip = Loc.T(tip);
+                    if (text == "Settings") item.ItemText = Loc.T(text);
+                }
+            }
+            catch (Exception ex) { Debug.Print("Ribbon language: " + ex.Message); }
         }
 
         public Result OnShutdown(UIControlledApplication a)
