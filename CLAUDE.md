@@ -109,6 +109,7 @@ docs/                        HISTORY_RU.md (development history & decisions), mo
   InitializeComponent). A missing line stays English, nothing breaks. Requests to the AI and report files stay in English; `FamilyPromptBuilder.LanguageNote` asks the model for
   Russian answers. Button labels are translated too; the name CoRFAGen is not. In WPF content a literal `_` needs `__`.
 * A UI change can be checked outside Revit: load the Release R24 DLL in a net48 process, `Loc.SetLanguage`, create the window and render it (RevitAPI is not touched until a Revit call runs).
+* An incremental build may not notice a replaced PNG (`Properties/Resources.resx` links them), and the DLL keeps the old icon; `BuildInstaller.cmd` uses `--no-incremental`. After changing icons, check the pictures inside the DLL, not the files in the folder.
 * Ribbon icons are drawn by `docs/icon-variants/make_icons.py`; set C is the chosen one, copied to `CoRFAGen/Resources` under the same file names.
 * Never log or echo API keys; keys live only in the user's CoRFAGen.json. `LlmHttp.SanitizeKey` strips invisible chars.
 

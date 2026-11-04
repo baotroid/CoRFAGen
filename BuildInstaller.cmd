@@ -7,7 +7,7 @@ rem  Just double-click this file. Log: Setup\build.log
 rem ============================================================================
 setlocal
 cd /d "%~dp0"
-set "VER=1.7.1"
+set "VER=1.7.2"
 if not exist "Setup" mkdir "Setup"
 set "LOG=%~dp0Setup\build.log"
 echo CoRFAGen MSI build %date% %time% > "%LOG%"
@@ -19,7 +19,8 @@ for %%V in (24 25 26 27) do (
   echo. >> "%LOG%"
   echo ===== Release R%%V ===== >> "%LOG%"
   echo Building Revit 20%%V ...
-  dotnet build "CoRFAGen\CoRFAGen.csproj" -c "Release R%%V" -p:SkipDeploy=true -nologo -v:minimal >> "%LOG%" 2>&1
+  rem --no-incremental: an incremental build can keep old icons, it does not always notice a replaced PNG
+  dotnet build "CoRFAGen\CoRFAGen.csproj" -c "Release R%%V" -p:SkipDeploy=true --no-incremental -nologo -v:minimal >> "%LOG%" 2>&1
   if errorlevel 1 (
     echo FAILED: Release R%%V >> "%LOG%"
     set FAILED=1

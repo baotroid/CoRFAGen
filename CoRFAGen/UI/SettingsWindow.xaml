@@ -91,14 +91,14 @@
                     <RowDefinition Height="Auto"/>
                 </Grid.RowDefinitions>
 
-                <!-- Active provider -->
+                <!-- Interface language, then the AI settings -->
                 <StackPanel Grid.Row="0">
-                    <TextBlock Text="Active AI Provider" Margin="0,0,0,6" FontWeight="SemiBold"/>
-                    <ComboBox ItemsSource="{Binding Providers}"
-                              SelectedItem="{Binding SelectedProvider}"/>
-                    <TextBlock Text="Interface language" Margin="0,10,0,6" FontWeight="SemiBold"/>
+                    <TextBlock Text="Interface language" Margin="0,0,0,6" FontWeight="SemiBold"/>
                     <ComboBox ItemsSource="{Binding Languages}"
                               SelectedItem="{Binding SelectedLanguage}"/>
+                    <TextBlock Text="Active AI Provider" Margin="0,16,0,6" FontWeight="SemiBold"/>
+                    <ComboBox ItemsSource="{Binding Providers}"
+                              SelectedItem="{Binding SelectedProvider}"/>
                 </StackPanel>
 
                 <!-- Claude API Key -->
