@@ -17,7 +17,15 @@ namespace CoRFAGen.UI
             Loc.Apply(this);
             _viewModel = new SettingsWindowViewModel();
             DataContext = _viewModel;
-            _viewModel.LanguageChanged += () => Loc.Apply(this);
+            _viewModel.LanguageChanged += () =>
+            {
+                Loc.Apply(this);
+                // these labels follow the state of the key fields, not the XAML text
+                BtnToggleClaudeKey.Content = Loc.T(_showingClaudeKey ? "Hide" : "Show");
+                BtnToggleGeminiKey.Content = Loc.T(_showingGeminiKey ? "Hide" : "Show");
+                BtnToggleQwenKey.Content = Loc.T(_showingQwenKey ? "Hide" : "Show");
+                BtnToggleOpenRouterKey.Content = Loc.T(_showingOpenRouterKey ? "Hide" : "Show");
+            };
 
             ClaudeKeyPasswordBox.Password = _viewModel.ClaudeApiKey;
             GeminiKeyPasswordBox.Password = _viewModel.GeminiApiKey;
@@ -87,14 +95,14 @@ namespace CoRFAGen.UI
                 textBox.Text = key;
                 passwordBox.Visibility = System.Windows.Visibility.Collapsed;
                 textBox.Visibility = System.Windows.Visibility.Visible;
-                button.Content = "Hide";
+                button.Content = Loc.T("Hide");
             }
             else
             {
                 passwordBox.Password = key;
                 textBox.Visibility = System.Windows.Visibility.Collapsed;
                 passwordBox.Visibility = System.Windows.Visibility.Visible;
-                button.Content = "Show";
+                button.Content = Loc.T("Show");
             }
         }
 

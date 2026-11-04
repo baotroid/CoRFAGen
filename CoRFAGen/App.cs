@@ -45,7 +45,7 @@
             _ribbonButtons.Add((panel.AddItem(data), text, tip));
         }
 
-        /// <summary>Panel title, tooltips and the Settings label in the current language; other button labels stay as they are.</summary>
+        /// <summary>Panel title, button labels and tooltips in the current language.</summary>
         internal static void ApplyRibbonLanguage()
         {
             try
@@ -55,7 +55,7 @@
                 foreach (var (item, text, tip) in _ribbonButtons)
                 {
                     item.ToolTip = Loc.T(tip);
-                    if (text == "Settings") item.ItemText = Loc.T(text);
+                    item.ItemText = Loc.T(text);
                 }
             }
             catch (Exception ex) { Debug.Print("Ribbon language: " + ex.Message); }

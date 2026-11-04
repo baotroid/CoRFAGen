@@ -15,7 +15,7 @@ namespace CoRFAGen.Data
     /// Interface language. The English text stays in the code and in XAML; in Russian every finished line is looked up
     /// in LocDictionary, exactly or by a pattern with values ({0}), so a line without a translation simply stays English.
     /// Only the screen is translated: requests to the AI and report files keep their English text.
-    /// Names of the plug-in and labels of buttons are not translated (the Settings ribbon button is, see LocDictionary).
+    /// The name CoRFAGen is not translated, also on the button that carries it.
     /// </summary>
     public static class Loc
     {
@@ -135,7 +135,7 @@ namespace CoRFAGen.Data
             return T(english);
         }
 
-        /// <summary>Translates the fixed texts of a window. Labels of buttons stay as they are; their tooltips are translated.</summary>
+        /// <summary>Translates the fixed texts of a window, including button labels and tooltips.</summary>
         public static void Apply(DependencyObject root)
         {
             if (root == null) return;
@@ -154,11 +154,8 @@ namespace CoRFAGen.Data
                                       && (IsRussian ? Exact.ContainsKey(box.Text) : HasOriginal(box)):
                     box.Text = Tr(box, "Text", box.Text);
                     break;
-                case C.CheckBox c when c.Content is string s:
-                    c.Content = Tr(c, "Content", s);
-                    break;
-                case C.RadioButton r when r.Content is string s:
-                    r.Content = Tr(r, "Content", s);
+                case C.Primitives.ButtonBase b when b.Content is string s:   // Button, CheckBox, RadioButton
+                    b.Content = Tr(b, "Content", s);
                     break;
                 case C.Label l when l.Content is string s:
                     l.Content = Tr(l, "Content", s);

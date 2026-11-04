@@ -4,22 +4,50 @@ namespace CoRFAGen.Data
 {
     /// <summary>
     /// English → Russian. {0}…{9} are values kept as they are, {m0}… are values translated too (nested messages).
-    /// Not translated on purpose: CoRFAGen, Purge, Generate, TypeGen, Refine and other button labels. "Settings" is the exception.
+    /// The name CoRFAGen is not translated. A button is called the same in every text that mentions it.
     /// </summary>
     internal static class LocDictionary
     {
         public static readonly Dictionary<string, string> Russian = new Dictionary<string, string>
         {
+            // ---- buttons: ribbon and windows
+            { "Purge", "Очистка" },
+            { "Generate", "Генерация" },
+            { "TypeGen", "Типоразмеры" },
+            { "Close", "Закрыть" },
+            { "Show", "Показать" },
+            { "Hide", "Скрыть" },
+            { "Add files...", "Добавить файлы..." },
+            { "Clear", "Очистить" },
+            { "Browse...", "Обзор..." },
+            { "Load JSON...", "Загрузить JSON..." },
+            { "Cancel", "Отмена" },
+            { "Use recommended", "Как рекомендовано" },
+            { "Continue", "Продолжить" },
+            { "Refine", "Уточнить" },
+            { "1 · Read type table", "1 · Прочитать таблицу" },
+            { "2 · Generate model", "2 · Создать модель" },
+            { "All", "Все" },
+            { "None", "Снять все" },
+            { "3D preview", "3D-просмотр" },
+            { "Load catalog JSON...", "Загрузить JSON каталога..." },
+            { "Save catalog JSON...", "Сохранить JSON каталога..." },
+            { "CoRFAGen — create family with types", "CoRFAGen — создать семейство с типоразмерами" },
+            { "CoRFAGen - Generate", "CoRFAGen — генерация" },
+            { "CoRFAGen - TypeGen", "CoRFAGen — типоразмеры" },
+            { "CoRFAGen Purge", "CoRFAGen — очистка" },
+            { "CoRFAGen · TypeGen", "CoRFAGen — типоразмеры" },
+
             // ---- ribbon
             { "Family Generator", "Генератор семейств" },
             { "Settings", "Настройки" },
             { "Configure CoRFAGen settings and API key", "Настройки CoRFAGen, API-ключи и язык интерфейса" },
             { "Generate: build a Revit family from up to 3 files (DWG/DXF or PDF drawing, JPG photo, PNG sketch) with AI (Claude, Gemini or Qwen), check it and preview it before CoRFAGen. Options: fill the family/template parameters or a shared parameter file (ФОП) in the family's language.",
-              "Generate: построить семейство Revit по 3 файлам максимум (чертёж DWG/DXF или PDF, фото JPG, эскиз PNG) с помощью ИИ (Claude, Gemini или Qwen), проверить его и посмотреть до записи кнопкой CoRFAGen. Можно заполнить параметры семейства/шаблона или файла общих параметров (ФОП) на языке семейства." },
+              "Генерация: построить семейство Revit по 3 файлам максимум (чертёж DWG/DXF или PDF, фото JPG, эскиз PNG) с помощью ИИ (Claude, Gemini или Qwen), проверить его и посмотреть до записи кнопкой CoRFAGen. Можно заполнить параметры семейства/шаблона или файла общих параметров (ФОП) на языке семейства." },
             { "Purge: remove unused elements left in the family, or a full clean of the family content before a new generation (CAD import types and line styles after a deleted DWG, unused materials, nested families, patterns, images ...) and save the family compacted to reduce its file size.",
-              "Purge: удалить неиспользуемые элементы семейства или полностью очистить его содержимое перед новой генерацией (типы импорта и стили линий после удалённого DWG, неиспользуемые материалы, вложенные семейства, образцы, изображения…) и сохранить семейство со сжатием, чтобы уменьшить размер файла." },
+              "Очистка: удалить неиспользуемые элементы семейства или полностью очистить его содержимое перед новой генерацией (типы импорта и стили линий после удалённого DWG, неиспользуемые материалы, вложенные семейства, образцы, изображения…) и сохранить семейство со сжатием, чтобы уменьшить размер файла." },
             { "TypeGen: family with several types from a catalog sheet — reads the type-size table (DN, PN, D1, L, H, mass…), builds one parametric model and creates one Revit type per row (e.g. «КЗРр 25с947нж DN50 PN16»). The actuator can be hidden with an instance check box.",
-              "TypeGen: семейство с несколькими типоразмерами по листу каталога: читает таблицу типоразмеров (DN, PN, D1, L, H, масса…), строит одну параметрическую модель и создаёт тип Revit на каждую строку (например, «КЗРр 25с947нж DN50 PN16»). Привод можно скрыть флажком экземпляра." },
+              "Типоразмеры: семейство с несколькими типоразмерами по листу каталога: читает таблицу типоразмеров (DN, PN, D1, L, H, масса…), строит одну параметрическую модель и создаёт тип Revit на каждую строку (например, «КЗРр 25с947нж DN50 PN16»). Привод можно скрыть флажком экземпляра." },
 
             // ---- settings window
             { "CoRFAGen Settings", "Настройки CoRFAGen" },
@@ -188,7 +216,7 @@ namespace CoRFAGen.Data
             { "Invalid JSON in API response:", "В ответе API неверный JSON:" },
 
             // ---- TypeGen window
-            { "TypeGen — family types from a catalog table", "TypeGen — типоразмеры семейства из таблицы каталога" },
+            { "TypeGen — family types from a catalog table", "Типоразмеры семейства из таблицы каталога" },
             { "Catalog sheet(s): PDF or DWG/DXF with the type table + drawing (max 3 files)", "Листы каталога: PDF или DWG/DXF с таблицей типоразмеров и чертежом (до 3 файлов)" },
             { "Catalog sheet(s)", "Листы каталога" },
             { "Optional notes for the AI, e.g. which table / page to use", "Необязательные указания для ИИ, например какую таблицу или страницу использовать" },
@@ -205,12 +233,12 @@ namespace CoRFAGen.Data
             { "Embeds the table as the lookup table BGS_Catalog (Manage Lookup Tables) and drives the numeric type parameters by size_lookup on DN and PN. Every type is still created.",
               "Встраивает таблицу в семейство как таблицу выбора BGS_Catalog (Управление таблицами выбора) и задаёт числовые параметры типа через size_lookup по DN и PN. Типы всё равно создаются для каждой строки." },
             { "Model check: no template yet.", "Проверка модели: шаблона ещё нет." },
-            { "No API key configured for {0}. Open CoRFAGen › Settings, or use Load catalog JSON… (prepared without an API key).", "Не настроен API-ключ для {0}. Откройте CoRFAGen › Настройки или используйте Load catalog JSON… (подготовленный без API-ключа)." },
+            { "No API key configured for {0}. Open CoRFAGen › Settings, or use Load catalog JSON… (prepared without an API key).", "Не настроен API-ключ для {0}. Откройте CoRFAGen › Настройки или нажмите «Загрузить JSON каталога...» (подготовленного без API-ключа)." },
             { "Reading the type table with {0}...", "Чтение таблицы типоразмеров в {0}..." },
             { "The model did not return a JSON object.", "Модель не вернула объект JSON." },
             { "Table read: {0} rows.", "Таблица прочитана, строк: {0}." },
             { "Table read: {0} rows.{m1}", "Таблица прочитана, строк: {0}.{m1}" },
-            { "Check the values, choose the figure and press «2 · Generate model».", "Проверьте значения, выберите фигуру и нажмите «2 · Generate model»." },
+            { "Check the values, choose the figure and press «2 · Generate model».", "Проверьте значения, выберите фигуру и нажмите «2 · Создать модель»." },
             { "Reading the table failed: {m0}", "Не удалось прочитать таблицу: {m0}" },
             { "Tick at least one row.", "Отметьте хотя бы одну строку." },
             { "Generating the parametric model with {0} (one request for all types)...", "Генерация параметрической модели в {0} (один запрос на все типоразмеры)..." },
@@ -249,12 +277,12 @@ namespace CoRFAGen.Data
             { "Details:", "Подробности:" },
 
             // ---- commands: Purge
-            { "Purge works in the Family Editor. Open the family (.rfa) first.", "Purge работает в редакторе семейств. Сначала откройте семейство (.rfa)." },
+            { "Purge works in the Family Editor. Open the family (.rfa) first.", "Очистка работает в редакторе семейств. Сначала откройте семейство (.rfa)." },
             { "What should be removed?", "Что нужно удалить?" },
             { "The family contains its own content:", "В семействе есть собственное содержимое:" },
             { "Purge unused elements", "Удалить неиспользуемые элементы" },
             { "Like Revit Purge Unused (several passes) + compact save. Geometry and parameters stay.", "Как «Удалить неиспользуемые» в Revit (несколько проходов) и сохранение со сжатием. Геометрия и параметры остаются." },
-            { "Full clean before generation (TypeGen / CoRFAGen)", "Полная очистка перед генерацией (TypeGen / CoRFAGen)" },
+            { "Full clean before generation (TypeGen / CoRFAGen)", "Полная очистка перед генерацией (Типоразмеры / CoRFAGen)" },
             { "Removes geometry, connectors, nested families, dimensions, lines, own reference planes, lookup tables and size_lookup formulas, then purges unused elements. Family parameters are kept.",
               "Удаляет геометрию, коннекторы, вложенные семейства, размеры, линии, собственные опорные плоскости, таблицы выбора и формулы size_lookup, затем неиспользуемые элементы. Параметры семейства сохраняются." },
             { "Full clean failed: {m0}", "Полная очистка не удалась: {m0}" },
@@ -265,7 +293,7 @@ namespace CoRFAGen.Data
             { "Remove {0} unused element(s) from the family?", "Удалить из семейства неиспользуемые элементы ({0} шт.)?" },
             { "Further passes may remove elements that were used only by these.", "Следующие проходы могут удалить элементы, которые использовались только этими." },
             { "Current file size: {0}", "Текущий размер файла: {0}" },
-            { "Purge failed: {m0}", "Purge не удался: {m0}" },
+            { "Purge failed: {m0}", "Очистка не удалась: {m0}" },
             { "Removed {0} element(s) in {1} pass(es), {2} could not be deleted:", "Удалено элементов: {0} за {1} прох.; не удалось удалить: {2}:" },
             { "Removed {0} element(s) in {1} pass(es):", "Удалено элементов: {0} за {1} прох.:" },
             { "The family has not been saved yet — use Save As to write a compact file.", "Семейство ещё не сохранено. Чтобы записать сжатый файл, используйте «Сохранить как»." },
@@ -277,11 +305,11 @@ namespace CoRFAGen.Data
             // kinds of content in the Purge dialogs are added below from the same keys as FamilyCleaner / FamilyPurger
 
             // ---- commands: TypeGen
-            { "TypeGen must be run inside the Family Editor.", "TypeGen работает в редакторе семейств." },
-            { "TypeGen - Error", "TypeGen — ошибка" },
+            { "TypeGen must be run inside the Family Editor.", "Команда «Типоразмеры» работает в редакторе семейств." },
+            { "TypeGen - Error", "Типоразмеры — ошибка" },
             { "Generation failed.", "Генерация не удалась." },
-            { "Purge: {0} unused element(s) removed.", "Purge: удалено неиспользуемых элементов: {0}." },
-            { "Purge skipped: {m0}", "Purge пропущен: {m0}" },
+            { "Purge: {0} unused element(s) removed.", "Очистка: удалено неиспользуемых элементов: {0}." },
+            { "Purge skipped: {m0}", "Очистка пропущена: {m0}" },
             { "Family types created: {0}", "Создано типоразмеров: {0}" },
             { "Geometry elements: {0}", "Элементы геометрии: {0}" },
             { "Warnings ({0}):", "Предупреждения ({0}):" },
@@ -291,7 +319,7 @@ namespace CoRFAGen.Data
             { "dimensions: {0}", "размеры: {0}" },
             { "This family already contains its own content", "В этом семействе уже есть собственное содержимое" },
             { "TypeGen replaces the geometry, but this content would stay and can break the new types (errors \"Cannot make extrusion\" when switching types, parts of another actuator).",
-              "TypeGen заменяет геометрию, но это содержимое останется и может нарушить новые типоразмеры (ошибки «Не удалось сформировать выдавливание» при смене типа, детали чужого привода)." },
+              "Команда «Типоразмеры» заменяет геометрию, но это содержимое останется и может нарушить новые типоразмеры (ошибки «Не удалось сформировать выдавливание» при смене типа, детали чужого привода)." },
             { "Full clean, then generate (recommended)", "Полная очистка, затем генерация (рекомендуется)" },
             { "Removes geometry, nested families, dimensions, own reference planes, lookup tables and size_lookup formulas. Parameters are kept.",
               "Удаляет геометрию, вложенные семейства, размеры, собственные опорные плоскости, таблицы выбора и формулы size_lookup. Параметры сохраняются." },

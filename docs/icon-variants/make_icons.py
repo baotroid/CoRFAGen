@@ -174,13 +174,13 @@ def c_generate(size):
 
 def c_purge(size):
     p = Pen(size)
-    broom(p, NAVY, BLUE, SKY, 9 if size >= 32 else 11)
+    broom(p, NAVY, ORANGE, BLUE, 9 if size >= 32 else 11)
     return p.done()
 
 
 def c_typegen(size):
     p = Pen(size)
-    p.round(10, 14, 90, 36, 5, fill=NAVY)
+    p.round(10, 14, 90, 36, 5, fill=ORANGE)
     for i, y in enumerate((42, 66)):
         p.round(10, y, 42, y + 20, 4, fill=BLUE)
         p.round(47, y, 90, y + 20, 4, fill=SKY)
@@ -190,7 +190,7 @@ def c_typegen(size):
 def c_settings(size):
     p = Pen(size)
     w = 9 if size >= 32 else 11
-    for y, x, col in ((22, 66, BLUE), (50, 34, NAVY), (78, 60, BLUE)):
+    for y, x, col in ((22, 66, BLUE), (50, 34, ORANGE), (78, 60, BLUE)):
         p.line([(8, y), (92, y)], SKY, w)
         p.dot(x, y, 14 if size >= 32 else 15, col)
     return p.done()
@@ -199,7 +199,7 @@ def c_settings(size):
 SETS = {
     'A-blue-tile': ('A. Синие плитки', (a_purge, a_generate, a_typegen, a_settings)),
     'B-blue-outline': ('B. Синий контур с оранжевым акцентом', (b_purge, b_generate, b_typegen, b_settings)),
-    'C-blue-duotone': ('C. Объёмные оттенки синего', (c_purge, c_generate, c_typegen, c_settings)),
+    'C-blue-duotone': ('C. Оттенки синего и оранжевый элемент (выбран, в плагине)', (c_purge, c_generate, c_typegen, c_settings)),
 }
 NAMES = ('purge', 'pregen', 'typegen', 'settings-sliders')
 LABELS = ('Purge', 'Generate', 'TypeGen', 'Settings')

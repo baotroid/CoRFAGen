@@ -19,8 +19,8 @@ CoRFAGen (прежнее название BeGenSt PDF&Pic2RFA) — плагин 
 ## Язык интерфейса
 
 **Settings → Interface language**: English или Русский. Окно, лента и 3D-просмотр переключаются сразу, выбор сохраняется в настройках.
-Не переводятся название плагина и подписи кнопок, кроме кнопки Settings на ленте (она становится «Настройки»). Файлы отчётов и журналы
-остаются на английском. Ответы ИИ, которые читает пользователь, при русском интерфейсе приходят на русском.
+Переводятся и подписи кнопок (Purge → Очистка, Generate → Генерация, TypeGen → Типоразмеры, Settings → Настройки); название CoRFAGen не переводится.
+Файлы отчётов и журналы остаются на английском. Ответы ИИ, которые читает пользователь, при русском интерфейсе приходят на русском.
 
 ## Исходные данные
 
@@ -184,7 +184,7 @@ In the preview window the **CoRFAGen** button creates the family in the Family E
 ### Interface language
 
 **Settings → Interface language**: English or Русский. The window, the ribbon and the 3D viewer switch at once, and the choice is saved in the settings.
-The plug-in name and button labels are not translated, except the Settings ribbon button («Настройки»). Report files and logs stay in English.
+Button labels are translated too (Purge → Очистка, Generate → Генерация, TypeGen → Типоразмеры, Settings → Настройки); the name CoRFAGen is not. Report files and logs stay in English.
 With the Russian interface, AI answers the user reads come in Russian.
 
 ### Source data

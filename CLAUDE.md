@@ -107,9 +107,9 @@ docs/                        HISTORY_RU.md (development history & decisions), mo
 * In public texts name the host as "plug-in for Autodesk Revit" and keep the trademark notice (README files, MSI comments).
 * New user-visible text: write it in English, add the line to `LocDictionary.cs`, and send it through `Loc.T` / `Loc.Show` / `Loc.ShowTask` (windows: `Loc.Apply(this)` after
   InitializeComponent). A missing line stays English, nothing breaks. Requests to the AI and report files stay in English; `FamilyPromptBuilder.LanguageNote` asks the model for
-  Russian answers. Button labels and the plug-in name are not translated; the Settings ribbon button is. In WPF content a literal `_` needs `__`.
+  Russian answers. Button labels are translated too; the name CoRFAGen is not. In WPF content a literal `_` needs `__`.
 * A UI change can be checked outside Revit: load the Release R24 DLL in a net48 process, `Loc.SetLanguage`, create the window and render it (RevitAPI is not touched until a Revit call runs).
-* Proposed ribbon icons: `docs/icon-variants` (`make_icons.py`, `preview.png`); same file names as `CoRFAGen/Resources`.
+* Ribbon icons are drawn by `docs/icon-variants/make_icons.py`; set C is the chosen one, copied to `CoRFAGen/Resources` under the same file names.
 * Never log or echo API keys; keys live only in the user's CoRFAGen.json. `LlmHttp.SanitizeKey` strips invisible chars.
 
 ## Workflow / sync rules

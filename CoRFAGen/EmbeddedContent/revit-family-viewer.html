@@ -372,11 +372,11 @@
     <canvas id="canvas"></canvas>
 
     <div class="view-controls">
-      <button class="view-btn" onclick="setView('iso')">ISO</button>
-      <button class="view-btn" onclick="setView('front')">Front</button>
-      <button class="view-btn" onclick="setView('top')">Top</button>
-      <button class="view-btn" onclick="setView('side')">Side</button>
-      <button class="view-btn" onclick="fitView()">Fit</button>
+      <button class="view-btn" data-view="iso" data-i18n="ISO" onclick="setView('iso')">ISO</button>
+      <button class="view-btn" data-view="front" data-i18n="Front" onclick="setView('front')">Front</button>
+      <button class="view-btn" data-view="top" data-i18n="Top" onclick="setView('top')">Top</button>
+      <button class="view-btn" data-view="side" data-i18n="Side" onclick="setView('side')">Side</button>
+      <button class="view-btn" data-i18n="Fit" onclick="fitView()">Fit</button>
     </div>
 
     <div class="hud hud-bl">
@@ -394,7 +394,7 @@
     <div class="error-banner" id="errorBanner"></div>
 
     <div class="param-toggle">
-      <button class="param-toggle-btn" id="paramToggleBtn" onclick="toggleParamPanel()">Params</button>
+      <button class="param-toggle-btn" id="paramToggleBtn" data-i18n="Params" onclick="toggleParamPanel()">Params</button>
     </div>
 
     <div class="param-panel" id="paramPanel">
@@ -1301,7 +1301,7 @@ function setView(preset) {
 
   updateCameraFromSpherical();
   document.querySelectorAll('.view-btn').forEach(b => b.classList.remove('active'));
-  const btn = [...document.querySelectorAll('.view-btn')].find(b => b.textContent.toLowerCase() === preset);
+  const btn = [...document.querySelectorAll('.view-btn')].find(b => b.dataset.view === preset);
   if (btn) btn.classList.add('active');
   document.getElementById('hudCamera').textContent = preset;
 }
@@ -1328,8 +1328,9 @@ function updateGrid() {
 
 let currentFamily = null;
 
-// Interface language: labels and messages only, button labels stay. Set by the add-in with setLanguage('ru').
+// Interface language of labels, buttons and messages. Set by the add-in with setLanguage('ru').
 const RU = {
+  'ISO': 'Изометрия', 'Front': 'Спереди', 'Top': 'Сверху', 'Side': 'Сбоку', 'Fit': 'Вписать', 'Params': 'Параметры', 'Reset All': 'Сбросить все',
   'Units': 'Единицы', 'Elements': 'Элементы', 'Camera': 'Камера', 'Drag': 'Перетаскивание', 'Shift+Drag': 'Shift+перетаскивание',
   'Scroll': 'Колесо', 'orbit': 'вращение', 'pan': 'сдвиг', 'zoom': 'масштаб', 'Parameters': 'Параметры',
   'No parameters defined.': 'Параметры не заданы.', 'Dimensions': 'Размеры', 'Construction': 'Конструкция',
@@ -1455,7 +1456,7 @@ function buildParamPanel(family) {
 
   const resetBtn = document.createElement('button');
   resetBtn.className = 'param-reset-btn';
-  resetBtn.textContent = 'Reset All';
+  resetBtn.textContent = tr('Reset All');
   resetBtn.addEventListener('click', resetAllParams);
   body.appendChild(resetBtn);
 }
